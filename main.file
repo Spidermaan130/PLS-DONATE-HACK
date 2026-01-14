@@ -1,87 +1,91 @@
--- [[ 👑 GHALOULIX9 SUPREME V25 👑 ]] --
--- 🛠️ GHOST PROTOCOL: KILLS GAME-FORCED WARNINGS & GUIS
--- ✨ THEME: BLOOD-NEON GLASS | NO LINKS | NO RAYFIELD
+-- [[ 👑 GHALOULIX9: THE FINAL WEAPON V26 👑 ]] --
+-- 🛠️ 100% RAW LUA | NO LINKS | NO RAYFIELD | NO LOADSTRING
+-- ☣️ WARNING: THIS SCRIPT KILLS ALL OTHER GUIS TO BYPASS GAME TRAPS
+
+repeat task.wait() until game:IsLoaded()
 
 local LP = game.Players.LocalPlayer
 local CoreGui = game:GetService("CoreGui")
 local MarketService = game:GetService("MarketplaceService")
 local UIS = game:GetService("UserInputService")
 
--- [[ 🚀 NUCLEAR CLEANUP (BYPASS GAME TRAPS) ]] --
-local function PurgeGameTraps()
-    for _, v in pairs(CoreGui:GetChildren()) do
-        -- Kills anything that isn't Roblox's core system or this script
-        if v:IsA("ScreenGui") and v.Name ~= "Supreme_V25" and v.Name ~= "RobloxGui" then
-            v:Destroy()
+-- [[ ☣️ NUCLEAR LOOP PURGE (BYPASS ENGINE) ]] --
+task.spawn(function()
+    while task.wait(0.1) do
+        for _, v in pairs(CoreGui:GetChildren()) do
+            -- Destroys everything except Roblox's core and YOUR script
+            if v:IsA("ScreenGui") and v.Name ~= "FINAL_WEAPON" and v.Name ~= "RobloxGui" and v.Name ~= "Chat" then
+                v:Destroy()
+            end
+        end
+        -- Mute all game-forced warning sounds
+        for _, s in pairs(game:GetDescendants()) do
+            if s:IsA("Sound") and (s.Name:lower():find("warn") or s.Name:lower():find("beep") or s.Name:lower():find("alert")) then
+                s.Volume = 0
+                s:Stop()
+            end
         end
     end
-    -- Stop the game from playing annoying warning sounds
-    for _, sound in pairs(game:GetDescendants()) do
-        if sound:IsA("Sound") and (sound.Name:lower():find("warn") or sound.Name:lower():find("beep")) then
-            sound:Stop()
-            sound.Volume = 0
-        end
-    end
-end
-PurgeGameTraps()
+end)
 
--- [[ 🎨 THE SUPREME UI ]] --
-local UI = Instance.new("ScreenGui", CoreGui); UI.Name = "Supreme_V25"
+-- [[ 🎨 FINAL WEAPON UI ]] --
+local UI = Instance.new("ScreenGui", CoreGui); UI.Name = "FINAL_WEAPON"
 local Main = Instance.new("Frame", UI)
-Main.Size = UDim2.new(0, 500, 0, 400); Main.Position = UDim2.new(0.5, -250, 0.5, -200)
-Main.BackgroundColor3 = Color3.fromRGB(15, 0, 0); Main.BackgroundTransparency = 0.2
-Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 20)
-local Glow = Instance.new("UIStroke", Main); Glow.Thickness = 4; Glow.Color = Color3.fromRGB(255, 0, 0)
+Main.Size = UDim2.new(0, 480, 0, 380); Main.Position = UDim2.new(0.5, -240, 0.5, -190)
+Main.BackgroundColor3 = Color3.fromRGB(10, 0, 0); Main.BackgroundTransparency = 0.2
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 15)
+local Neon = Instance.new("UIStroke", Main); Neon.Thickness = 4; Neon.Color = Color3.fromRGB(255, 0, 0)
 
--- Header (Clean Title)
+-- Header
 local Title = Instance.new("TextLabel", Main)
-Title.Size = UDim2.new(1, 0, 0, 60); Title.Text = "SUPREME V25: GHOST"; Title.TextColor3 = Color3.new(1,1,1)
-Title.Font = "GothamBlack"; Title.TextSize = 22; Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1, 0, 0, 50); Title.Text = "FINAL WEAPON V26"; Title.TextColor3 = Color3.new(1,1,1)
+Title.Font = "GothamBlack"; Title.TextSize = 20; Title.BackgroundTransparency = 1
 
--- Status Box (Wealth Display)
+-- Wealth/Status (Glass Style)
 local Status = Instance.new("TextLabel", Main)
-Status.Size = UDim2.new(0.9, 0, 0, 65); Status.Position = UDim2.new(0.05, 0, 0.16, 0)
-Status.BackgroundColor3 = Color3.fromRGB(0, 0, 0); Status.BackgroundTransparency = 0.5
+Status.Size = UDim2.new(0.9, 0, 0, 60); Status.Position = UDim2.new(0.05, 0, 0.15, 0)
+Status.BackgroundColor3 = Color3.fromRGB(0, 0, 0); Status.BackgroundTransparency = 0.6
 Status.TextColor3 = Color3.new(1, 1, 1); Status.Font = "Code"; Status.TextSize = 14
-Status.Text = ">> GAME TRAPS PURGED. STANDING BY."; Status.TextWrapped = true; Instance.new("UICorner", Status)
+Status.Text = ">> TRAPS BYPASSED. READY."; Status.TextWrapped = true; Instance.new("UICorner", Status)
 
--- [[ PANELS ]] --
+-- Selection
 local PList = Instance.new("ScrollingFrame", Main)
 PList.Size = UDim2.new(0.44, 0, 0.45, 0); PList.Position = UDim2.new(0.05, 0, 0.35, 0)
-PList.BackgroundTransparency = 1; PList.AutomaticCanvasSize = "Y"; PList.ScrollBarThickness = 2
+PList.BackgroundTransparency = 1; PList.AutomaticCanvasSize = "Y"; PList.ScrollBarThickness = 0
 Instance.new("UIListLayout", PList).Padding = UDim.new(0, 5)
 
-local Control = Instance.new("Frame", Main)
-Control.Size = UDim2.new(0.44, 0, 0.45, 0); Control.Position = UDim2.new(0.51, 0, 0.35, 0); Control.BackgroundTransparency = 1
+local InputArea = Instance.new("Frame", Main)
+InputArea.Size = UDim2.new(0.44, 0, 0.45, 0); InputArea.Position = UDim2.new(0.51, 0, 0.35, 0); InputArea.BackgroundTransparency = 1
 
-local IDBox = Instance.new("TextBox", Control)
-IDBox.Size = UDim2.new(1, 0, 0, 45); IDBox.PlaceholderText = "GAMEPASS ID"; IDBox.Text = ""
-IDBox.BackgroundColor3 = Color3.fromRGB(30, 0, 0); IDBox.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", IDBox)
+local IDBox = Instance.new("TextBox", InputArea)
+IDBox.Size = UDim2.new(1, 0, 0, 40); IDBox.PlaceholderText = "GAMEPASS ID"; IDBox.Text = ""
+IDBox.BackgroundColor3 = Color3.fromRGB(40, 0, 0); IDBox.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", IDBox)
 
-local Verify = Instance.new("TextButton", Control)
-Verify.Size = UDim2.new(1, 0, 0, 45); Verify.Position = UDim2.new(0, 0, 0.4, 0)
-Verify.Text = "VERIFY & SAVE"; Verify.BackgroundColor3 = Color3.fromRGB(180, 0, 0)
-Verify.TextColor3 = Color3.new(1,1,1); Verify.Font = "GothamBold"; Instance.new("UICorner", Verify)
+local VerifyBtn = Instance.new("TextButton", InputArea)
+VerifyBtn.Size = UDim2.new(1, 0, 0, 40); VerifyBtn.Position = UDim2.new(0, 0, 0.35, 0)
+VerifyBtn.Text = "VERIFY & SAVE"; VerifyBtn.BackgroundColor3 = Color3.fromRGB(180, 0, 0)
+VerifyBtn.TextColor3 = Color3.new(1,1,1); VerifyBtn.Font = "GothamBold"; Instance.new("UICorner", VerifyBtn)
 
--- [[ DONATE BUTTON ]] --
+-- Action
 local Action = Instance.new("TextButton", Main)
-Action.Size = UDim2.new(0.9, 0, 0, 60); Action.Position = UDim2.new(0.05, 0, 0.82, 0)
-Action.BackgroundColor3 = Color3.fromRGB(50, 50, 50); Action.Text = "VERIFY ID TO UNLOCK"; Action.TextColor3 = Color3.new(1,1,1)
-Action.Font = "GothamBlack"; Action.TextSize = 22; Instance.new("UICorner", Action)
+Action.Size = UDim2.new(0.9, 0, 0, 55); Action.Position = UDim2.new(0.05, 0, 0.82, 0)
+Action.BackgroundColor3 = Color3.fromRGB(40, 40, 40); Action.Text = "VERIFY TO START"; Action.TextColor3 = Color3.new(1,1,1)
+Action.Font = "GothamBlack"; Action.TextSize = 20; Instance.new("UICorner", Action)
 
 -- [[ ⚙️ SYSTEM LOGIC ]] --
-local TargetPlayer = nil
-local SavedPassID = nil
-local SAVE_FILE = "SupremeManualID.txt"
+local TargetUser = nil
+local CurrentPass = nil
+local SAVE_ID = "FinalWeaponID.txt"
 
 -- Player Loader
-local function RefreshPlayers()
+local function Load()
+    for _, v in pairs(PList:GetChildren()) do if v:IsA("TextButton") then v:Destroy() end end
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= LP then
-            local b = Instance.new("TextButton", PList); b.Size = UDim2.new(1, -5, 0, 35); b.BackgroundColor3 = Color3.fromRGB(20, 20, 20); b.BackgroundTransparency = 0.3
+            local b = Instance.new("TextButton", PList); b.Size = UDim2.new(1, 0, 0, 35); b.BackgroundColor3 = Color3.fromRGB(20, 20, 20); b.BackgroundTransparency = 0.5
             b.Text = p.DisplayName; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
             b.MouseButton1Click:Connect(function() 
-                TargetPlayer = p
+                TargetUser = p
                 local r = (p:FindFirstChild("leaderstats") and p.leaderstats:FindFirstChild("Raised") and p.leaderstats.Raised.Value or 0)
                 Status.Text = ">> TARGET: " .. p.Name .. " | WEALTH: " .. r .. " R$"
             end)
@@ -89,44 +93,40 @@ local function RefreshPlayers()
     end
 end
 
--- Verification Logic
-Verify.MouseButton1Click:Connect(function()
+-- Verification
+VerifyBtn.MouseButton1Click:Connect(function()
     local id = tonumber(IDBox.Text)
-    if not id then Status.Text = ">> ERROR: ENTER NUMBERS ONLY"; return end
-    
-    local success, info = pcall(function() return MarketService:GetProductInfo(id, Enum.InfoType.GamePass) end)
-    if success and info then
+    if not id then Status.Text = ">> INVALID ID"; return end
+    local ok, info = pcall(function() return MarketService:GetProductInfo(id, Enum.InfoType.GamePass) end)
+    if ok and info then
         if info.Creator.CreatorTargetId == LP.UserId and info.IsPubliclySellable then
-            SavedPassID = id
-            if writefile then writefile(SAVE_FILE, tostring(id)) end
-            Status.TextColor3 = Color3.new(0, 1, 0)
-            Status.Text = ">> PASS VERIFIED: " .. info.Name .. " (" .. info.PriceInRobux .. " R$)"
-            Action.BackgroundColor3 = Color3.fromRGB(220, 0, 0); Action.Text = "DONATE / CONTINUE 🔜"
+            CurrentPass = id
+            if writefile then writefile(SAVE_ID, tostring(id)) end
+            Status.TextColor3 = Color3.new(0, 1, 0); Status.Text = ">> SUCCESS: " .. info.Name
+            Action.BackgroundColor3 = Color3.fromRGB(200, 0, 0); Action.Text = "DONATE / CONFIRM 🔜"
         else
-            Status.TextColor3 = Color3.new(1, 0, 0)
-            Status.Text = ">> ERROR: PASS NOT YOURS OR NOT ACTIVE"
+            Status.TextColor3 = Color3.new(1, 0, 0); Status.Text = ">> NOT YOURS OR NOT ACTIVE!"
         end
     else
-        Status.Text = ">> ERROR: INVALID GAMEPASS ID"
+        Status.Text = ">> ID ERROR"; Status.TextColor3 = Color3.new(1, 0, 0)
     end
 end)
 
--- Execution Logic
+-- Execution
 Action.MouseButton1Click:Connect(function()
-    if not TargetPlayer or not SavedPassID then return end
-    local info = MarketService:GetProductInfo(SavedPassID, Enum.InfoType.GamePass)
-    local wealth = (TargetPlayer:FindFirstChild("leaderstats") and TargetPlayer.leaderstats:FindFirstChild("Raised") and TargetPlayer.leaderstats.Raised.Value or 0)
+    if not TargetUser or not CurrentPass then return end
+    local info = MarketService:GetProductInfo(CurrentPass, Enum.InfoType.GamePass)
+    local wealth = (TargetUser:FindFirstChild("leaderstats") and TargetUser.leaderstats:FindFirstChild("Raised") and TargetUser.leaderstats.Raised.Value or 0)
     
     if wealth >= (info.PriceInRobux or 0) then
-        local hrp = TargetPlayer.Character and TargetPlayer.Character:FindFirstChild("HumanoidRootPart")
+        local hrp = TargetUser.Character and TargetUser.Character:FindFirstChild("HumanoidRootPart")
         if hrp then
-            local oldCFrame = hrp.CFrame
+            local oldPos = hrp.CFrame
             hrp.CFrame = LP.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5)
-            MarketService:PromptGamePassPurchase(TargetPlayer, SavedPassID)
-            local connect
-            connect = MarketService.PromptGamePassPurchaseFinished:Connect(function(plr, id, state)
-                if plr == TargetPlayer and id == SavedPassID then
-                    task.wait(1.5); hrp.CFrame = oldCFrame; connect:Disconnect()
+            MarketService:PromptGamePassPurchase(TargetUser, CurrentPass)
+            local fin; fin = MarketService.PromptGamePassPurchaseFinished:Connect(function(plr, id, state)
+                if plr == TargetUser and id == CurrentPass then
+                    task.wait(1.5); hrp.CFrame = oldPos; fin:Disconnect()
                 end
             end)
         end
@@ -136,10 +136,10 @@ Action.MouseButton1Click:Connect(function()
 end)
 
 -- Initialize
-if isfile and isfile(SAVE_FILE) then IDBox.Text = readfile(SAVE_FILE) end
-RefreshPlayers()
+if isfile and isfile(SAVE_ID) then IDBox.Text = readfile(SAVE_ID) end
+Load()
 
--- Mobile Drag
+-- Dragging
 local drag, dStart, sPos
 Main.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = true dStart = i.Position sPos = Main.Position end end)
 Main.InputEnded:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = false end end)
