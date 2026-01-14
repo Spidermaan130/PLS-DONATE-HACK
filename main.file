@@ -1,123 +1,131 @@
--- [[ 👑 GHALOULIX9 SUPREME COMMANDER V8 👑 ]] --
--- 🛠️ 100% RAW CUSTOM CODE | NO RAYFIELD | NO LIBRARIES
--- 🌍 UNIVERSAL AUTO-TRANSLATOR (ALL LANGUAGES)
--- ⚡ BUILT FOR DELTA EXECUTOR
+-- [[ 👑 GHALOULIX9 SUPREME COMMANDER V10 👑 ]] --
+-- 🛠️ 100% RAW CUSTOM | NO RAYFIELD | NO LIBRARIES
+-- ✨ STYLE: EXTREMELY BEAUTIFUL RED-NIGHT THEME
 
 repeat task.wait() until game:IsLoaded()
 
 local CoreGui = game:GetService("CoreGui")
-local HttpService = game:GetService("HttpService")
+local TweenService = game:GetService("TweenService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local LP = game.Players.LocalPlayer
 local LocService = game:GetService("LocalizationService")
 
--- [[ 🧹 CLEANUP OLD UI ]] --
-if CoreGui:FindFirstChild("GHALOULIX9_V8") then CoreGui.GHALOULIX9_V8:Destroy() end
+-- Cleanup
+if CoreGui:FindFirstChild("SupremeV10") then CoreGui.SupremeV10:Destroy() end
 
-local SelectedPlayer = nil
-local SelectedPass = {id = nil, price = 0}
-
--- [[ 🌍 UNIVERSAL TRANSLATOR DICTIONARY ]] --
+-- [[ 🌍 UNIVERSAL DICTIONARY ]] --
 local Lang = LocService.RobloxLocaleId:lower()
 local Dictionary = {
-    ["en-us"] = {success = "THE DONATION SUCCESS!, THE PLAYER YOU MADE HIM DONATE YOU '%s' '%s R$' WAS SUCCESSFUL WORKED BECAUSE HE HAD '%s R$' SO NOW YOU WILL HAVE YOUR '%s R$' SOON 🔜", error = "ERROR THE PLAYER YOU ARE TRYING TO MAKE HIM DONATE YOU '%s', '%s R$' HE CAN'T DONATE BCS HE HAS '%s R$' AND HE CAN'T DONATE YOU THIS AMOUNT OF R$"},
-    ["ar-gs"] = {success = "تم التبرع بنجاح! اللاعب الذي جعلته يتبرع لك بـ '%s' بمبلغ '%s روبوكس' نجح لأنه كان يمتلك '%s روبوكس' لذا ستحصل على مبلغك قريباً 🔜", error = "خطأ! اللاعب الذي تحاول جعله يتبرع لك بـ '%s' بمبلغ '%s روبوكس' لا يمكنه التبرع لأنه يمتلك فقط '%s روبوكس'"},
-    ["fr-fr"] = {success = "DONATION RÉUSSIE ! LE JOUEUR QUE VOUS AVEZ FAIT DONNER '%s' '%s R$' A RÉUSSI CAR IL AVAIT '%s R$' DONC VOUS AUREZ VOS '%s R$' BIENTÔT 🔜", error = "ERREUR LE JOUEUR QUE VOUS ESSAYEZ DE FAIRE DONNER '%s', '%s R$' NE PEUT PAS CAR IL A '%s R$'"},
-    ["es-es"] = {success = "¡DONACIÓN EXITOSA! EL JUGADOR QUE HICISTE DONAR '%s' '%s R$' FUNCIONÓ PORQUE TENÍA '%s R$' ASÍ QUE TENDRÁS TU '%s R$' PRONTO 🔜", error = "ERROR EL JUGADOR QUE INTENTAS HACER DONAR '%s', '%s R$' NO PUEDE PORQUE TIENE '%s R$'"},
-    ["de-de"] = {success = "SPENDE ERFOLGREICH! DER SPIELER HAT ERFOLGREICH GEZAHLT, WEIL ER '%s R$' HATTE. DU ERHÄLTST DEINE '%s R$' BALD 🔜", error = "FEHLER! DER SPIELER KANN NICHT ZAHLEN, DA ER NUR '%s R$' HAT"}
+    ["en-us"] = {success = "SUCCESS! %s donated %s R$. You'll receive it soon! 🔜", error = "FAILED! %s only has %s R$. Need more for this! 🔜"},
+    ["ar-gs"] = {success = "نجح التبرع! %s تبرع بـ %s روبوكس. ستصلك قريباً! 🔜", error = "فشل! %s يمتلك فقط %s روبوكس. يحتاج للمزيد! 🔜"},
+    ["fr-fr"] = {success = "SUCCÈS ! %s a donné %s R$. Arrivée bientôt ! 🔜", error = "ÉCHEC ! %s n'a que %s R$. Besoin de plus ! 🔜"},
+    ["es-es"] = {success = "¡EXITOSO! %s donó %s R$. ¡Llegará pronto! 🔜", error = "¡FALLIDO! %s solo tiene %s R$. ¡Necesita más! 🔜"}
 }
 
-local function GetTranslated(key, v1, v2, v3, v4)
+local function GetMsg(key, v1, v2)
     local set = Dictionary[Lang] or Dictionary["en-us"]
-    return string.format(set[key], tostring(v1), tostring(v2), tostring(v3), tostring(v4 or v2))
+    return string.format(set[key], tostring(v1), tostring(v2))
 end
 
--- [[ 🎨 PURE CUSTOM GUI (NO LIBRARIES) ]] --
-local Screen = Instance.new("ScreenGui", CoreGui); Screen.Name = "GHALOULIX9_V8"
-
+-- [[ 🎨 THE "EXTREMELY BEAUTIFUL" UI ]] --
+local Screen = Instance.new("ScreenGui", CoreGui); Screen.Name = "SupremeV10"
 local Main = Instance.new("Frame", Screen)
-Main.Size = UDim2.new(0, 520, 0, 440); Main.Position = UDim2.new(0.5, -260, 0.5, -220)
-Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15); Main.BorderSizePixel = 0
-Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 10)
-local Glow = Instance.new("UIStroke", Main); Glow.Color = Color3.fromRGB(200, 0, 0); Glow.Thickness = 2.5
+Main.Size = UDim2.new(0, 560, 0, 480); Main.Position = UDim2.new(0.5, -280, 0.5, -240)
+Main.BackgroundColor3 = Color3.fromRGB(10, 10, 10); Main.BorderSizePixel = 0
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 12)
 
-local Top = Instance.new("TextLabel", Main)
-Top.Size = UDim2.new(1, -20, 0, 40); Top.Position = UDim2.new(0, 10, 0, 0)
-Top.Text = "GHALOULIX9 HUB | NO-RAYFIELD SUPREME"; Top.TextColor3 = Color3.new(1, 1, 1)
-Top.Font = "GothamBlack"; Top.TextSize = 16; Top.BackgroundTransparency = 1; Top.TextXAlignment = "Left"
+-- Animated Glow Border
+local Glow = Instance.new("UIStroke", Main)
+Glow.Thickness = 3; Glow.Color = Color3.fromRGB(255, 0, 0)
+task.spawn(function()
+    while true do
+        local tween = TweenService:Create(Glow, TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), {Color = Color3.fromRGB(100, 0, 0)})
+        tween:Play()
+        task.wait(3)
+    end
+end)
 
-local Console = Instance.new("TextLabel", Main)
-Console.Size = UDim2.new(1, -20, 0, 110); Console.Position = UDim2.new(0, 10, 0, 50)
-Console.BackgroundColor3 = Color3.fromRGB(10, 10, 10); Console.TextColor3 = Color3.new(1, 1, 1)
-Console.Font = "GothamBold"; Console.TextSize = 13; Console.TextWrapped = true; Console.Text = "SYSTEM READY..."
-Instance.new("UICorner", Console)
+-- Title Header
+local Header = Instance.new("Frame", Main)
+Header.Size = UDim2.new(1, 0, 0, 50); Header.BackgroundColor3 = Color3.fromRGB(20, 0, 0); Header.BorderSizePixel = 0
+Instance.new("UICorner", Header)
 
--- Selection Lists
-local PlayersList = Instance.new("ScrollingFrame", Main); PlayersList.Size = UDim2.new(0.46, 0, 0.4, 0); PlayersList.Position = UDim2.new(0, 10, 0, 175); PlayersList.BackgroundTransparency = 1
-Instance.new("UIListLayout", PlayersList).Padding = UDim.new(0, 5)
+local Title = Instance.new("TextLabel", Header)
+Title.Size = UDim2.new(1, -20, 1, 0); Title.Position = UDim2.new(0, 15, 0, 0)
+Title.Text = "GHALOULIX9 SUPREME V10"; Title.TextColor3 = Color3.new(1, 1, 1)
+Title.Font = "GothamBlack"; Title.TextSize = 22; Title.BackgroundTransparency = 1; Title.TextXAlignment = "Left"
 
-local RobuxList = Instance.new("ScrollingFrame", Main); RobuxList.Size = UDim2.new(0.46, 0, 0.4, 0); RobuxList.Position = UDim2.new(0.52, 0, 0, 175); RobuxList.BackgroundTransparency = 1
-Instance.new("UIListLayout", RobuxList).Padding = UDim.new(0, 5)
+-- Information Display
+local Display = Instance.new("TextLabel", Main)
+Display.Size = UDim2.new(0.95, 0, 0, 100); Display.Position = UDim2.new(0.025, 0, 0.12, 0)
+Display.BackgroundColor3 = Color3.fromRGB(5, 5, 5); Display.TextColor3 = Color3.fromRGB(255, 50, 50)
+Display.Font = "Code"; Display.TextSize = 14; Display.Text = ">> READY FOR COMMANDS..."
+Instance.new("UICorner", Display)
 
--- Main Execute Button
-local ConfirmBtn = Instance.new("TextButton", Main)
-ConfirmBtn.Size = UDim2.new(0.96, 0, 0, 55); ConfirmBtn.Position = UDim2.new(0.02, 0, 0.84, 0)
-ConfirmBtn.BackgroundColor3 = Color3.fromRGB(180, 0, 0); ConfirmBtn.Text = "EXECUTE / DONATE"
-ConfirmBtn.TextColor3 = Color3.new(1, 1, 1); ConfirmBtn.Font = "GothamBlack"; ConfirmBtn.TextSize = 20; Instance.new("UICorner", ConfirmBtn)
+-- Scrolling Lists
+local function CreateScroll(pos, size)
+    local s = Instance.new("ScrollingFrame", Main)
+    s.Size = size; s.Position = pos; s.BackgroundTransparency = 1; s.ScrollBarThickness = 2
+    Instance.new("UIListLayout", s).Padding = UDim.new(0, 6)
+    return s
+end
 
--- [[ ⚙️ CORE LOGIC ]] --
-local function GetStats(p)
+local PList = CreateScroll(UDim2.new(0, 15, 0, 170), UDim2.new(0.46, 0, 0.45, 0))
+local RList = CreateScroll(UDim2.new(0.52, 0, 0, 170), UDim2.new(0.46, 0, 0.45, 0))
+
+-- Command Button
+local Exec = Instance.new("TextButton", Main)
+Exec.Size = UDim2.new(0.96, 0, 0, 65); Exec.Position = UDim2.new(0.02, 0, 0.84, 0)
+Exec.BackgroundColor3 = Color3.fromRGB(180, 0, 0); Exec.Text = "EXECUTE SUPREME DONATE"
+Exec.TextColor3 = Color3.new(1, 1, 1); Exec.Font = "GothamBlack"; Exec.TextSize = 24; Instance.new("UICorner", Exec)
+
+-- [[ ⚙️ CORE SYSTEMS ]] --
+local Target = nil
+local Price = {id = nil, amount = 0}
+
+local function GetTotal(p)
     local s = p:FindFirstChild("leaderstats")
     return (s and s:FindFirstChild("Donated") and s.Donated.Value or 0) + (s and s:FindFirstChild("Raised") and s.Raised.Value or 0)
 end
 
-local function Init()
-    -- Load Players
+local function Load()
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= LP then
-            local b = Instance.new("TextButton", PlayersList); b.Size = UDim2.new(1, -10, 0, 35); b.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-            b.Text = p.DisplayName; b.TextColor3 = Color3.new(1, 1, 1); b.Font = "GothamBold"; Instance.new("UICorner", b)
-            b.MouseButton1Click:Connect(function() 
-                SelectedPlayer = p
-                Console.Text = "TARGET: " .. p.Name .. " | CURRENT WEALTH: " .. GetStats(p) .. " R$"
-            end)
+            local b = Instance.new("TextButton", PList); b.Size = UDim2.new(1, -10, 0, 40); b.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+            b.Text = p.DisplayName .. " [" .. GetTotal(p) .. "]"; b.TextColor3 = Color3.new(1, 1, 1); b.Font = "GothamBold"; Instance.new("UICorner", b)
+            b.MouseButton1Click:Connect(function() Target = p; Display.Text = ">> TARGET LOCKED: " .. p.Name end)
         end
     end
-    -- Load YOUR Passes (Scraped via Proxy)
+    -- Pull your actual Gamepasses
     pcall(function()
-        local games = HttpService:JSONDecode(game:HttpGet("https://games.roproxy.com/v2/users/"..LP.UserId.."/games?accessFilter=Public&limit=10")).data
+        local games = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roproxy.com/v2/users/"..LP.UserId.."/games?accessFilter=Public&limit=5")).data
         for _, g in pairs(games) do
-            local ps = HttpService:JSONDecode(game:HttpGet("https://games.roproxy.com/v1/games/"..g.id.."/game-passes")).data
+            local ps = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roproxy.com/v1/games/"..g.id.."/game-passes")).data
             for _, pass in pairs(ps) do
-                local b = Instance.new("TextButton", RobuxList); b.Size = UDim2.new(1, -10, 0, 35); b.BackgroundColor3 = Color3.fromRGB(0, 60, 0)
+                local b = Instance.new("TextButton", RList); b.Size = UDim2.new(1, -10, 0, 40); b.BackgroundColor3 = Color3.fromRGB(0, 50, 0)
                 b.Text = pass.price .. " R$"; b.TextColor3 = Color3.new(1, 1, 1); b.Font = "GothamBlack"; Instance.new("UICorner", b)
-                b.MouseButton1Click:Connect(function() SelectedPass = {id = pass.id, price = pass.price} end)
+                b.MouseButton1Click:Connect(function() Price = {id = pass.id, amount = pass.price} end)
             end
         end
     end)
 end
 
-ConfirmBtn.MouseButton1Click:Connect(function()
-    if not SelectedPlayer or not SelectedPass.id then return end
-    local currentWorth = GetStats(SelectedPlayer)
-    
-    if currentWorth < SelectedPass.price then
-        Console.TextColor3 = Color3.new(1, 0, 0)
-        Console.Text = GetTranslated("error", LP.Name, SelectedPass.price, currentWorth)
-    else
-        Console.TextColor3 = Color3.new(0, 1, 0)
-        Console.Text = GetTranslated("success", LP.Name, SelectedPass.price, currentWorth)
-        
-        -- THE COMMANDER ACTION
-        local root = SelectedPlayer.Character and SelectedPlayer.Character:FindFirstChild("HumanoidRootPart")
+Exec.MouseButton1Click:Connect(function()
+    if not Target or not Price.id then return end
+    local worth = GetTotal(Target)
+    if worth >= Price.amount then
+        Display.Text = ">> " .. GetMsg("success", Target.Name, Price.amount)
+        local root = Target.Character and Target.Character:FindFirstChild("HumanoidRootPart")
         if root then
-            local oldCFrame = root.CFrame
+            local old = root.CFrame
             root.CFrame = LP.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5)
-            MarketplaceService:PromptGamePassPurchase(SelectedPlayer, SelectedPass.id)
+            MarketplaceService:PromptGamePassPurchase(Target, Price.id)
             task.wait(5)
-            root.CFrame = oldCFrame
+            root.CFrame = old
         end
+    else
+        Display.Text = ">> " .. GetMsg("error", Target.Name, worth)
     end
 end)
 
-Init()
+Load()
