@@ -1,6 +1,6 @@
--- [[ 👑 GHALOULIX9 SUPREME V17 👑 ]] --
--- 🛠️ NO RAYFIELD | NO EXTERNAL LIBS | 100% RAW LUA
--- ✨ SUPER AMAZING | EXTREMELY BEAUTIFUL | DELTA READY
+-- [[ 👑 V18 MASTER SYSTEM 👑 ]] --
+-- 🛠️ 100% RAW INSTANCES | NO LIBRARIES | NO PROXY LIBS
+-- ✨ THEME: BLOOD-RED NEON | NO SOUNDS | NO WARNINGS
 
 repeat task.wait() until game:IsLoaded()
 
@@ -9,116 +9,124 @@ local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
 local MarketService = game:GetService("MarketplaceService")
 local HttpService = game:GetService("HttpService")
-local LocService = game:GetService("LocalizationService")
 
--- [[ 🔑 CUSTOM KEY SYSTEM ]] --
-local KeySystem = Instance.new("ScreenGui", CoreGui)
-local KeyFrame = Instance.new("Frame", KeySystem)
-KeyFrame.Size = UDim2.new(0, 400, 0, 250)
-KeyFrame.Position = UDim2.new(0.5, -200, 0.5, -125)
-KeyFrame.BackgroundColor3 = Color3.fromRGB(15, 0, 0)
-Instance.new("UICorner", KeyFrame).CornerRadius = UDim.new(0, 15)
-Instance.new("UIStroke", KeyFrame).Color = Color3.fromRGB(255, 0, 0)
-
-local KeyTitle = Instance.new("TextLabel", KeyFrame)
-KeyTitle.Size = UDim2.new(1, 0, 0, 50); KeyTitle.Text = "ENTER SUPREME KEY"; KeyTitle.TextColor3 = Color3.new(1,1,1); KeyTitle.Font = "GothamBlack"; KeyTitle.TextSize = 20; KeyTitle.BackgroundTransparency = 1
-
-local KeyInput = Instance.new("TextBox", KeyFrame)
-KeyInput.Size = UDim2.new(0.8, 0, 0, 40); KeyInput.Position = UDim2.new(0.1, 0, 0.4, 0); KeyInput.BackgroundColor3 = Color3.fromRGB(30, 0, 0); KeyInput.Text = ""; KeyInput.PlaceholderText = "Key Here..."; KeyInput.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", KeyInput)
-
-local KeyBtn = Instance.new("TextButton", KeyFrame)
-KeyBtn.Size = UDim2.new(0.8, 0, 0, 40); KeyBtn.Position = UDim2.new(0.1, 0, 0.7, 0); KeyBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0); KeyBtn.Text = "CHECK KEY"; KeyBtn.TextColor3 = Color3.new(1,1,1); KeyBtn.Font = "GothamBold"; Instance.new("UICorner", KeyBtn)
-
--- [[ 🌍 TRANSLATOR ENGINE ]] --
-local Lang = LocService.RobloxLocaleId:lower()
-local Dictionary = {
-    ["en-us"] = {success = "THE DONATION SUCCESS!, THE PLAYER YOU MADE HIM DONATE YOU '%s' '%s R$' WAS SUCCESSFUL WORKED BECAUSE HE HAD '%s R$' SO NOW YOU WILL HAVE YOUR '%s R$' SOON 🔜", error = "ERROR THE PLAYER YOU ARE TRYING TO MAKE HIM DONATE YOU '%s', '%s R$' HE CAN'T DONATE BCS HE HAS '%s R$' AND HE CAN'T DONATE YOU THIS AMOUNT OF R$"},
-    ["ar-gs"] = {success = "نجاح التبرع! اللاعب الذي جعلته يتبرع لك بـ '%s' بمبلغ '%s روبوكس' نجح لأنه كان يمتلك '%s روبوكس' لذا ستحصل على '%s روبوكس' قريباً 🔜", error = "خطأ! اللاعب الذي تحاول جعله يتبرع لك بـ '%s' بمبلغ '%s روبوكس' لا يمكنه التبرع لأنه يمتلك فقط '%s روبوكس'"},
-    ["fr-fr"] = {success = "DONATION RÉUSSIE ! LE JOUEUR QUE VOUS AVEZ FAIT DONNER '%s' '%s R$' A RÉUSSI CAR IL AVAIT '%s R$' DONC VOUS AUREZ VOS '%s R$' BIENTÔT 🔜", error = "ERREUR LE JOUEUR QUE VOUS ESSAYEZ DE FAIRE DONNER '%s', '%s R$' NE PEUT PAS CAR IL A '%s R$'"},
-}
-local function GetMsg(key, v1, v2, v3)
-    local set = Dictionary[Lang] or Dictionary["en-us"]
-    return string.format(set[key], tostring(v1), tostring(v2), tostring(v3))
+-- 1. HARD FORCE CLEANUP (Kills every other GUI to prevent Rayfield ghosts)
+for _, v in pairs(CoreGui:GetChildren()) do
+    if v:IsA("ScreenGui") and v.Name ~= "RobloxGui" then
+        v:Destroy()
+    end
 end
 
--- [[ 🎨 THE SUPREME GUI ]] --
-local MainGui = Instance.new("ScreenGui", CoreGui); MainGui.Enabled = false
-local Main = Instance.new("Frame", MainGui); Main.Size = UDim2.new(0, 550, 0, 450); Main.Position = UDim2.new(0.5, -275, 0.5, -225); Main.BackgroundColor3 = Color3.fromRGB(10, 10, 10); Main.BorderSizePixel = 0; Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 15)
-local Glow = Instance.new("UIStroke", Main); Glow.Thickness = 4; Glow.Color = Color3.fromRGB(255, 0, 0)
+-- [[ 🔑 SIMPLE KEY SYSTEM ]] --
+local KeyGui = Instance.new("ScreenGui", CoreGui); KeyGui.Name = "V18_Key"
+local KFrame = Instance.new("Frame", KeyGui)
+KFrame.Size = UDim2.new(0, 350, 0, 200); KFrame.Position = UDim2.new(0.5, -175, 0.5, -100)
+KFrame.BackgroundColor3 = Color3.fromRGB(15, 0, 0); Instance.new("UICorner", KFrame)
+Instance.new("UIStroke", KFrame).Color = Color3.fromRGB(255, 0, 0)
 
--- Animated Border
-task.spawn(function() while true do TweenService:Create(Glow, TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), {Color = Color3.fromRGB(100, 0, 0)}):Play(); task.wait(3) end end)
+local KTitle = Instance.new("TextLabel", KFrame)
+KTitle.Size = UDim2.new(1, 0, 0, 50); KTitle.Text = "ACCESS V18"; KTitle.TextColor3 = Color3.new(1,1,1)
+KTitle.Font = "GothamBlack"; KTitle.TextSize = 20; KTitle.BackgroundTransparency = 1
 
--- Wealth/Status Display
-local Status = Instance.new("TextLabel", Main); Status.Size = UDim2.new(0.9, 0, 0, 70); Status.Position = UDim2.new(0.05, 0, 0.05, 0); Status.BackgroundColor3 = Color3.fromRGB(5, 5, 5); Status.TextColor3 = Color3.new(1,1,1); Status.Font = "Code"; Status.TextSize = 14; Status.TextWrapped = true; Status.Text = ">> SELECT A PLAYER TO SCAN WEALTH"; Instance.new("UICorner", Status)
+local KInput = Instance.new("TextBox", KFrame)
+KInput.Size = UDim2.new(0.8, 0, 0, 40); KInput.Position = UDim2.new(0.1, 0, 0.35, 0)
+KInput.BackgroundColor3 = Color3.fromRGB(30, 0, 0); KInput.Text = ""; KInput.PlaceholderText = "Enter Key..."; KInput.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", KInput)
+
+local KBtn = Instance.new("TextButton", KFrame)
+KBtn.Size = UDim2.new(0.8, 0, 0, 40); KBtn.Position = UDim2.new(0.1, 0, 0.65, 0)
+KBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0); KBtn.Text = "VERIFY"; KBtn.TextColor3 = Color3.new(1,1,1)
+KBtn.Font = "GothamBold"; Instance.new("UICorner", KBtn)
+
+-- [[ 🎨 THE SUPREME V18 INTERFACE ]] --
+local MainGui = Instance.new("ScreenGui", CoreGui); MainGui.Enabled = false; MainGui.Name = "V18_Main"
+local Base = Instance.new("Frame", MainGui)
+Base.Size = UDim2.new(0, 550, 0, 400); Base.Position = UDim2.new(0.5, -275, 0.5, -200)
+Base.BackgroundColor3 = Color3.fromRGB(10, 10, 10); Instance.new("UICorner", Base)
+local Glow = Instance.new("UIStroke", Base); Glow.Thickness = 3; Glow.Color = Color3.fromRGB(255, 0, 0)
+
+-- Wealth / Info Display
+local Info = Instance.new("TextLabel", Base)
+Info.Size = UDim2.new(0.9, 0, 0, 60); Info.Position = UDim2.new(0.05, 0, 0.05, 0)
+Info.BackgroundColor3 = Color3.fromRGB(5, 5, 5); Info.TextColor3 = Color3.new(1, 1, 1)
+Info.Font = "Code"; Info.TextSize = 14; Info.Text = ">> WAITING FOR SELECTION"; Instance.new("UICorner", Info)
 
 -- Lists
-local PScroll = Instance.new("ScrollingFrame", Main); PScroll.Size = UDim2.new(0.43, 0, 0.45, 0); PScroll.Position = UDim2.new(0.05, 0, 0.25, 0); PScroll.BackgroundTransparency = 1; PScroll.AutomaticCanvasSize = "Y"; Instance.new("UIListLayout", PScroll).Padding = UDim.new(0, 5)
-local RScroll = Instance.new("ScrollingFrame", Main); RScroll.Size = UDim2.new(0.43, 0, 0.45, 0); RScroll.Position = UDim2.new(0.52, 0, 0.25, 0); RScroll.BackgroundTransparency = 1; RScroll.AutomaticCanvasSize = "Y"; Instance.new("UIListLayout", RScroll).Padding = UDim.new(0, 5)
+local function MakeList(pos, label)
+    local f = Instance.new("ScrollingFrame", Base); f.Size = UDim2.new(0.43, 0, 0.45, 0); f.Position = pos; f.BackgroundTransparency = 1; f.AutomaticCanvasSize = "Y"; f.ScrollBarThickness = 2
+    Instance.new("UIListLayout", f).Padding = UDim.new(0, 5)
+    local t = Instance.new("TextLabel", Base); t.Size = UDim2.new(0.43, 0, 0, 20); t.Position = UDim2.new(pos.X.Scale, pos.X.Offset, pos.Y.Scale, -25); t.Text = label; t.TextColor3 = Color3.fromRGB(255, 50, 50); t.Font = "GothamBold"; t.BackgroundTransparency = 1
+    return f
+end
+local PList = MakeList(UDim2.new(0.05, 0, 0.28, 0), "SERVER PLAYERS")
+local GList = MakeList(UDim2.new(0.52, 0, 0.28, 0), "YOUR GAMEPASSES")
 
--- Donate Button
-local ActionBtn = Instance.new("TextButton", Main); ActionBtn.Size = UDim2.new(0.9, 0, 0, 60); ActionBtn.Position = UDim2.new(0.05, 0, 0.8, 0); ActionBtn.BackgroundColor3 = Color3.fromRGB(180, 0, 0); ActionBtn.Text = "DONATE / CONTINUE 🔜"; ActionBtn.TextColor3 = Color3.new(1,1,1); ActionBtn.Font = "GothamBlack"; ActionBtn.TextSize = 22; Instance.new("UICorner", ActionBtn)
+-- Action Button
+local Go = Instance.new("TextButton", Base)
+Go.Size = UDim2.new(0.9, 0, 0, 55); Go.Position = UDim2.new(0.05, 0, 0.82, 0)
+Go.BackgroundColor3 = Color3.fromRGB(180, 0, 0); Go.Text = "DONATE / CONTINUE"; Go.TextColor3 = Color3.new(1, 1, 1)
+Go.Font = "GothamBlack"; Go.TextSize = 20; Instance.new("UICorner", Go)
 
--- [[ ⚙️ LOGIC ]] --
-local SelectedPlayer = nil
-local SelectedPass = {id = nil, price = 0}
+-- [[ ⚙️ SYSTEM LOGIC ]] --
+local Target = nil
+local TargetPass = {id = nil, price = 0}
 
-local function GetWealth(p)
+local function GetStats(p)
     local s = p:FindFirstChild("leaderstats")
-    return (s and s:FindFirstChild("Raised") and s.Raised.Value or 0) -- Using Raised as Wealth indicator
+    return (s and s:FindFirstChild("Raised") and s.Raised.Value or 0)
 end
 
-local function Load()
+local function LoadContent()
+    -- Players
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= LP then
-            local b = Instance.new("TextButton", PScroll); b.Size = UDim2.new(1, -5, 0, 35); b.BackgroundColor3 = Color3.fromRGB(30, 30, 30); b.Text = p.Name; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
+            local b = Instance.new("TextButton", PList); b.Size = UDim2.new(1, -5, 0, 35); b.BackgroundColor3 = Color3.fromRGB(25, 25, 25); b.Text = p.Name; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
             b.MouseButton1Click:Connect(function() 
-                SelectedPlayer = p
-                Status.Text = ">> TARGET: " .. p.Name .. " | CURRENT WEALTH: " .. GetWealth(p) .. " R$"
+                Target = p
+                Info.Text = ">> PLAYER: " .. p.Name .. " | WEALTH: " .. GetStats(p) .. " R$"
             end)
         end
     end
-    -- Get Your Gamepasses
+    -- Gamepasses (Clean Fetch)
     pcall(function()
         local games = HttpService:JSONDecode(game:HttpGet("https://games.roproxy.com/v2/users/"..LP.UserId.."/games?accessFilter=Public&limit=5")).data
         for _, g in pairs(games) do
-            local ps = HttpService:JSONDecode(game:HttpGet("https://games.roproxy.com/v1/games/"..g.id.."/game-passes")).data
-            for _, pass in pairs(ps) do
-                local b = Instance.new("TextButton", RScroll); b.Size = UDim2.new(1, -5, 0, 35); b.BackgroundColor3 = Color3.fromRGB(0, 60, 0); b.Text = pass.price .. " R$"; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBlack"; Instance.new("UICorner", b)
-                b.MouseButton1Click:Connect(function() SelectedPass = {id = pass.id, price = pass.price} end)
+            local passes = HttpService:JSONDecode(game:HttpGet("https://games.roproxy.com/v1/games/"..g.id.."/game-passes")).data
+            for _, pass in pairs(passes) do
+                local b = Instance.new("TextButton", GList); b.Size = UDim2.new(1, -5, 0, 35); b.BackgroundColor3 = Color3.fromRGB(0, 60, 0); b.Text = pass.price .. " R$"; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBlack"; Instance.new("UICorner", b)
+                b.MouseButton1Click:Connect(function() TargetPass = {id = pass.id, price = pass.price} end)
             end
         end
     end)
 end
 
-ActionBtn.MouseButton1Click:Connect(function()
-    if not SelectedPlayer or not SelectedPass.id then return end
-    local pWealth = GetWealth(SelectedPlayer)
-    if pWealth >= SelectedPass.price then
-        Status.TextColor3 = Color3.new(0, 1, 0)
-        Status.Text = ">> " .. GetMsg("success", SelectedPlayer.Name, SelectedPass.price, pWealth)
-        local root = SelectedPlayer.Character and SelectedPlayer.Character:FindFirstChild("HumanoidRootPart")
-        if root then
-            local oldPos = root.CFrame
-            root.CFrame = LP.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5) -- Teleport to you
-            MarketService:PromptGamePassPurchase(SelectedPlayer, SelectedPass.id)
-            MarketService.PromptGamePassPurchaseFinished:Wait() -- Wait for buy
+Go.MouseButton1Click:Connect(function()
+    if not Target or not TargetPass.id then return end
+    local wealth = GetStats(Target)
+    if wealth >= TargetPass.price then
+        Info.TextColor3 = Color3.new(0, 1, 0)
+        Info.Text = ">> SUCCESS! TELEPORTING " .. Target.Name .. " (" .. TargetPass.price .. " R$)"
+        local hrp = Target.Character and Target.Character:FindFirstChild("HumanoidRootPart")
+        if hrp then
+            local old = hrp.CFrame
+            hrp.CFrame = LP.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5)
+            MarketService:PromptGamePassPurchase(Target, TargetPass.id)
+            MarketService.PromptGamePassPurchaseFinished:Wait()
             task.wait(2)
-            root.CFrame = oldPos -- Teleport Back
+            hrp.CFrame = old
         end
     else
-        Status.TextColor3 = Color3.new(1, 0, 0)
-        Status.Text = ">> " .. GetMsg("error", SelectedPlayer.Name, SelectedPass.price, pWealth)
+        Info.TextColor3 = Color3.new(1, 0, 0)
+        Info.Text = ">> ERROR: " .. Target.Name .. " ONLY HAS " .. wealth .. " R$. NOT ENOUGH!"
     end
 end)
 
-KeyBtn.MouseButton1Click:Connect(function()
-    if KeyInput.Text == "GHALOULIX9" then -- Your custom key
-        KeySystem:Destroy()
+KBtn.MouseButton1Click:Connect(function()
+    if KInput.Text == "GHALOULIX9" then
+        KeyGui:Destroy()
         MainGui.Enabled = true
-        Load()
+        LoadContent()
     else
-        KeyBtn.Text = "WRONG KEY!"
-        task.wait(1); KeyBtn.Text = "CHECK KEY"
+        KBtn.Text = "INVALID KEY"
+        task.wait(1); KBtn.Text = "VERIFY"
     end
 end)
