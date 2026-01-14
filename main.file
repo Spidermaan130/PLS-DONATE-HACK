@@ -1,161 +1,133 @@
--- [[ 👑 V20 SUPREME: ZERO-LINK EDITION 👑 ]] --
--- 🛠️ NO LINKS | NO LOADSTRINGS | NO PROXIES | NO HTTPGET
--- ✨ THEME: BLOOD-NEON CUSTOM GUI | EXTREMELY BEAUTIFUL
+-- [[ 👑 GHALOULIX9 SUPREME V24 👑 ]] --
+-- 🛠️ GLASS THEME | NO LINKS | NO LOADSTRINGS
+-- ✨ THEME: TRANSPARENT NEON | SAVES YOUR ID LOCALLY
 
 local LP = game.Players.LocalPlayer
 local CoreGui = game:GetService("CoreGui")
-local TweenService = game:GetService("TweenService")
 local MarketService = game:GetService("MarketplaceService")
+local TweenService = game:GetService("TweenService")
+local UIS = game:GetService("UserInputService")
 
--- 1. CLEAN START: Destroying any old UI versions
+-- Cleanup
 for _, v in pairs(CoreGui:GetChildren()) do
-    if v.Name == "Supreme_V20" or v.Name == "V19_KeySystem" or v.Name == "V18_Key" then
-        v:Destroy()
-    end
+    if v.Name == "Supreme_V24" then v:Destroy() end
 end
 
--- [[ 🎨 CUSTOM UI CONSTRUCTION ]] --
-local UI = Instance.new("ScreenGui", CoreGui); UI.Name = "Supreme_V20"
-
--- [[ 🔑 INTEGRATED KEY SYSTEM ]] --
-local KeyFrame = Instance.new("Frame", UI)
-KeyFrame.Size = UDim2.new(0, 360, 0, 200); KeyFrame.Position = UDim2.new(0.5, -180, 0.5, -100)
-KeyFrame.BackgroundColor3 = Color3.fromRGB(12, 0, 0); Instance.new("UICorner", KeyFrame)
-local KeyStroke = Instance.new("UIStroke", KeyFrame); KeyStroke.Thickness = 3; KeyStroke.Color = Color3.fromRGB(255, 0, 0)
-
-local KeyTitle = Instance.new("TextLabel", KeyFrame)
-KeyTitle.Size = UDim2.new(1, 0, 0, 50); KeyTitle.Text = "SYSTEM ACCESS REQUIRED"; KeyTitle.TextColor3 = Color3.new(1,1,1)
-KeyTitle.Font = "GothamBlack"; KeyTitle.TextSize = 18; KeyTitle.BackgroundTransparency = 1
-
-local KeyInput = Instance.new("TextBox", KeyFrame)
-KeyInput.Size = UDim2.new(0.8, 0, 0, 40); KeyInput.Position = UDim2.new(0.1, 0, 0.35, 0)
-KeyInput.BackgroundColor3 = Color3.fromRGB(25, 0, 0); KeyInput.Text = ""; KeyInput.PlaceholderText = "Type Key Here..."; KeyInput.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", KeyInput)
-
-local KeyBtn = Instance.new("TextButton", KeyFrame)
-KeyBtn.Size = UDim2.new(0.8, 0, 0, 40); KeyBtn.Position = UDim2.new(0.1, 0, 0.7, 0)
-KeyBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0); KeyBtn.Text = "UNLOCK"; KeyBtn.TextColor3 = Color3.new(1,1,1)
-KeyBtn.Font = "GothamBold"; Instance.new("UICorner", KeyBtn)
-
--- [[ 🚀 MAIN SYSTEM GUI ]] --
-local Main = Instance.new("Frame", UI); Main.Visible = false
-Main.Size = UDim2.new(0, 550, 0, 440); Main.Position = UDim2.new(0.5, -275, 0.5, -220)
-Main.BackgroundColor3 = Color3.fromRGB(10, 10, 10); Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 15)
-local MainStroke = Instance.new("UIStroke", Main); MainStroke.Thickness = 4; MainStroke.Color = Color3.fromRGB(255, 0, 0)
-
--- Animated Pulse
-task.spawn(function()
-    while true do
-        TweenService:Create(MainStroke, TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), {Color = Color3.fromRGB(80, 0, 0)}):Play()
-        task.wait(3)
-    end
-end)
+-- [[ 🎨 GLASS UI DESIGN ]] --
+local UI = Instance.new("ScreenGui", CoreGui); UI.Name = "Supreme_V24"
+local Main = Instance.new("Frame", UI)
+Main.Size = UDim2.new(0, 500, 0, 400); Main.Position = UDim2.new(0.5, -250, 0.5, -200)
+Main.BackgroundColor3 = Color3.fromRGB(15, 0, 0)
+Main.BackgroundTransparency = 0.25 -- Transparent effect
+Main.BorderSizePixel = 0
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 20)
+local Glow = Instance.new("UIStroke", Main); Glow.Thickness = 3; Glow.Color = Color3.fromRGB(255, 0, 0)
 
 -- Header
-local Header = Instance.new("TextLabel", Main)
-Header.Size = UDim2.new(1, 0, 0, 60); Header.Text = "SUPREME COMMANDER V20"; Header.TextColor3 = Color3.new(1,1,1)
-Header.Font = "GothamBlack"; Header.TextSize = 22; Header.BackgroundTransparency = 1
+local Title = Instance.new("TextLabel", Main)
+Title.Size = UDim2.new(1, 0, 0, 55); Title.Text = "SUPREME GLASS V24"; Title.TextColor3 = Color3.new(1,1,1)
+Title.Font = "GothamBlack"; Title.TextSize = 22; Title.BackgroundTransparency = 1
 
--- Wealth / Status Info
+-- Status Display
 local Status = Instance.new("TextLabel", Main)
-Status.Size = UDim2.new(0.92, 0, 0, 60); Status.Position = UDim2.new(0.04, 0, 0.15, 0)
-Status.BackgroundColor3 = Color3.fromRGB(5, 5, 5); Status.TextColor3 = Color3.new(1, 1, 1)
-Status.Font = "Code"; Status.TextSize = 14; Status.Text = ">> WAITING FOR PLAYER SELECTION"; Instance.new("UICorner", Status)
+Status.Size = UDim2.new(0.9, 0, 0, 65); Status.Position = UDim2.new(0.05, 0, 0.14, 0)
+Status.BackgroundColor3 = Color3.fromRGB(0, 0, 0); Status.BackgroundTransparency = 0.4
+Status.TextColor3 = Color3.new(1, 1, 1); Status.Font = "Code"; Status.TextSize = 14
+Status.Text = ">> SYSTEM LOADED. READY."; Status.TextWrapped = true; Instance.new("UICorner", Status)
 
--- Player Scrolling List
+-- [[ SELECTION PANELS ]] --
 local PList = Instance.new("ScrollingFrame", Main)
-PList.Size = UDim2.new(0.44, 0, 0.4, 0); PList.Position = UDim2.new(0.04, 0, 0.35, 0)
+PList.Size = UDim2.new(0.44, 0, 0.45, 0); PList.Position = UDim2.new(0.05, 0, 0.32, 0)
 PList.BackgroundTransparency = 1; PList.AutomaticCanvasSize = "Y"; PList.ScrollBarThickness = 2
 Instance.new("UIListLayout", PList).Padding = UDim.new(0, 5)
 
--- Gamepass Input Section (Manual Entry)
-local ManualBox = Instance.new("Frame", Main)
-ManualBox.Size = UDim2.new(0.44, 0, 0.4, 0); ManualBox.Position = UDim2.new(0.52, 0, 0.35, 0)
-ManualBox.BackgroundColor3 = Color3.fromRGB(15, 15, 15); Instance.new("UICorner", ManualBox)
+local ManualPanel = Instance.new("Frame", Main)
+ManualPanel.Size = UDim2.new(0.44, 0, 0, 180); ManualPanel.Position = UDim2.new(0.51, 0, 0.32, 0); ManualPanel.BackgroundTransparency = 1
 
-local IDInput = Instance.new("TextBox", ManualBox)
-IDInput.Size = UDim2.new(0.9, 0, 0, 40); IDInput.Position = UDim2.new(0.05, 0, 0.15, 0)
-IDInput.BackgroundColor3 = Color3.fromRGB(30, 0, 0); IDInput.PlaceholderText = "GAMEPASS ID"; IDInput.Text = ""; IDInput.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", IDInput)
+local PassInput = Instance.new("TextBox", ManualPanel)
+PassInput.Size = UDim2.new(1, 0, 0, 45); PassInput.PlaceholderText = "GAMEPASS ID"; PassInput.Text = ""
+PassInput.BackgroundColor3 = Color3.fromRGB(40, 0, 0); PassInput.BackgroundTransparency = 0.3
+PassInput.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", PassInput)
 
-local CostInput = Instance.new("TextBox", ManualBox)
-CostInput.Size = UDim2.new(0.9, 0, 0, 40); CostInput.Position = UDim2.new(0.05, 0, 0.45, 0)
-CostInput.BackgroundColor3 = Color3.fromRGB(30, 0, 0); CostInput.PlaceholderText = "COST (ROBUX)"; CostInput.Text = ""; CostInput.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", CostInput)
+local VerifyBtn = Instance.new("TextButton", ManualPanel)
+VerifyBtn.Size = UDim2.new(1, 0, 0, 45); VerifyBtn.Position = UDim2.new(0, 0, 0.35, 0)
+VerifyBtn.Text = "VERIFY & SAVE"; VerifyBtn.BackgroundColor3 = Color3.fromRGB(180, 0, 0)
+VerifyBtn.TextColor3 = Color3.new(1,1,1); VerifyBtn.Font = "GothamBold"; Instance.new("UICorner", VerifyBtn)
 
--- Action Button
+-- [[ ACTION BUTTON ]] --
 local Action = Instance.new("TextButton", Main)
-Action.Size = UDim2.new(0.92, 0, 0, 60); Action.Position = UDim2.new(0.04, 0, 0.82, 0)
-Action.BackgroundColor3 = Color3.fromRGB(200, 0, 0); Action.Text = "DONATE / CONTINUE 🔜"
-Action.TextColor3 = Color3.new(1,1,1); Action.Font = "GothamBlack"; Action.TextSize = 22; Instance.new("UICorner", Action)
+Action.Size = UDim2.new(0.9, 0, 0, 60); Action.Position = UDim2.new(0.05, 0, 0.8, 0)
+Action.BackgroundColor3 = Color3.fromRGB(60, 60, 60); Action.Text = "LOCKED: VERIFY FIRST"; Action.TextColor3 = Color3.new(1,1,1)
+Action.Font = "GothamBlack"; Action.TextSize = 22; Instance.new("UICorner", Action)
 
--- [[ ⚙️ SYSTEM CORE LOGIC ]] --
-local TargetUser = nil
+-- [[ CORE LOGIC ]] --
+local SelectedPlayer = nil
+local VerifiedID = nil
+local SAVE_NAME = "SupremeManualID.txt"
 
-local function GetStats(p)
-    local s = p:FindFirstChild("leaderstats")
-    return (s and s:FindFirstChild("Raised") and s.Raised.Value or 0)
+local function CheckPass(id)
+    local success, info = pcall(function() return MarketService:GetProductInfo(id, Enum.InfoType.GamePass) end)
+    if success and info then
+        if info.Creator.CreatorTargetId ~= LP.UserId then return false, "Error: Ownership Mismatch!" end
+        if not info.IsPubliclySellable then return false, "This gamepass id 🆔 is not activated!" end
+        return true, info
+    end
+    return false, "ID Not Found"
 end
 
-local function LoadPlayers()
-    for _, p in pairs(game.Players:GetPlayers()) do
-        if p ~= LP then
-            local b = Instance.new("TextButton", PList); b.Size = UDim2.new(1, -8, 0, 35); b.BackgroundColor3 = Color3.fromRGB(25, 25, 25); b.Text = p.Name; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
-            b.MouseButton1Click:Connect(function() 
-                TargetUser = p
-                Status.Text = ">> USER: " .. p.Name .. " | WEALTH: " .. GetStats(p) .. " R$"
-            end)
-        end
+for _, p in pairs(game.Players:GetPlayers()) do
+    if p ~= LP then
+        local b = Instance.new("TextButton", PList); b.Size = UDim2.new(1, -5, 0, 35); b.BackgroundColor3 = Color3.fromRGB(20, 20, 20); b.BackgroundTransparency = 0.4
+        b.Text = p.DisplayName; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
+        b.MouseButton1Click:Connect(function() 
+            SelectedPlayer = p
+            local raised = (p:FindFirstChild("leaderstats") and p.leaderstats:FindFirstChild("Raised") and p.leaderstats.Raised.Value or 0)
+            Status.Text = ">> TARGET: " .. p.Name .. " | WEALTH: " .. raised .. " R$"
+        end)
     end
 end
+
+VerifyBtn.MouseButton1Click:Connect(function()
+    local id = tonumber(PassInput.Text)
+    if not id then Status.Text = ">> ENTER A VALID ID"; return end
+    local ok, info = CheckPass(id)
+    if ok then
+        VerifiedID = id
+        if writefile then writefile(SAVE_NAME, tostring(id)) end
+        Status.TextColor3 = Color3.new(0, 1, 0); Status.Text = ">> VERIFIED: " .. info.Name
+        Action.BackgroundColor3 = Color3.fromRGB(220, 0, 0); Action.Text = "DONATE / CONTINUE 🔜"
+    else
+        Status.TextColor3 = Color3.new(1, 0, 0); Status.Text = ">> " .. info
+    end
+end)
 
 Action.MouseButton1Click:Connect(function()
-    local passID = tonumber(IDInput.Text)
-    local passCost = tonumber(CostInput.Text)
+    if not SelectedPlayer or not VerifiedID then return end
+    local info = MarketService:GetProductInfo(VerifiedID, Enum.InfoType.GamePass)
+    local pWealth = (SelectedPlayer:FindFirstChild("leaderstats") and SelectedPlayer.leaderstats:FindFirstChild("Raised") and SelectedPlayer.leaderstats.Raised.Value or 0)
     
-    if not TargetUser or not passID or not passCost then 
-        Status.Text = ">> ERROR: SELECT PLAYER AND ENTER GAMEPASS INFO"
-        return 
-    end
-    
-    local currentWealth = GetStats(TargetUser)
-    
-    if currentWealth >= passCost then
-        Status.TextColor3 = Color3.new(0, 1, 0)
-        Status.Text = ">> SUCCESS: TELEPORTING " .. TargetUser.Name
-        local hrp = TargetUser.Character and TargetUser.Character:FindFirstChild("HumanoidRootPart")
+    if pWealth >= (info.PriceInRobux or 0) then
+        local hrp = SelectedPlayer.Character and SelectedPlayer.Character:FindFirstChild("HumanoidRootPart")
         if hrp then
-            local oldPos = hrp.CFrame
+            local old = hrp.CFrame
             hrp.CFrame = LP.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5)
-            MarketService:PromptGamePassPurchase(TargetUser, passID)
-            
-            -- Wait for them to finish
+            MarketService:PromptGamePassPurchase(SelectedPlayer, VerifiedID)
             local connection
-            connection = MarketService.PromptGamePassPurchaseFinished:Connect(function(player, id, purchased)
-                if player == TargetUser and id == passID then
-                    task.wait(1.5)
-                    hrp.CFrame = oldPos
-                    connection:Disconnect()
+            connection = MarketService.PromptGamePassPurchaseFinished:Connect(function(plr, id, purchased)
+                if plr == SelectedPlayer and id == VerifiedID then
+                    task.wait(1); hrp.CFrame = old; connection:Disconnect()
                 end
             end)
         end
     else
-        Status.TextColor3 = Color3.new(1, 0, 0)
-        Status.Text = ">> ERROR: " .. TargetUser.Name .. " HAS ONLY " .. currentWealth .. " R$ (NEEDS " .. passCost .. ")"
+        Status.TextColor3 = Color3.new(1, 0, 0); Status.Text = ">> HE HAS NOT ENOUGH ROBUX"
     end
 end)
 
--- Key Logic
-KeyBtn.MouseButton1Click:Connect(function()
-    if KeyInput.Text == "GHALOULIX9" then
-        KeyFrame.Visible = false
-        Main.Visible = true
-        LoadPlayers()
-    else
-        KeyBtn.Text = "INVALID"; task.wait(1); KeyBtn.Text = "UNLOCK"
-    end
-end)
+if isfile and isfile(SAVE_NAME) then PassInput.Text = readfile(SAVE_NAME) end
 
--- Drag Logic (Delta Mobile)
-local UIS = game:GetService("UserInputService")
+-- Dragging logic remains active for mobile
 local drag, dStart, sPos
 Main.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = true dStart = i.Position sPos = Main.Position end end)
 Main.InputEnded:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = false end end)
-UIS.InputChanged:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseMovement and drag then local delta = i.Position - dStart Main.Position = UDim2.new(sPos.X.Scale, sPos.X.Offset + delta.X, sPos.Y.Scale, sPos.Y.Offset + delta.Y) end end)
+UIS.InputChanged:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseMovement and drag then local d = i.Position - dStart Main.Position = UDim2.new(sPos.X.Scale, sPos.X.Offset + d.X, sPos.Y.Scale, sPos.Y.Offset + d.Y) end end)
