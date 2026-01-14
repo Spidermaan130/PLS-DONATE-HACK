@@ -1,15 +1,15 @@
--- [[ 👑 GHALOULIX9 SUPREME V53 👑 ]] --
--- ✨ THEME: TRANSPARENT CRYSTAL (BUG FIXED)
--- 🛡️ SECURITY: ANTI-KICK & ANTI-BAN ACTIVE
+-- [[ 👑 GHALOULIX9 SUPREME V54 👑 ]] --
+-- ✨ THEME: CRYSTAL GLASS NEON
+-- ⚙️ FIX: INSTANT LOADING & BOOTH ALARM SYNC
 
 local LP = game.Players.LocalPlayer
 local CoreGui = game:GetService("CoreGui")
 local UIS = game:GetService("UserInputService")
 local MarketService = game:GetService("MarketplaceService")
 
--- [[ 🧹 CLEANUP OLD UI ]] --
+-- [[ 🧹 NUCLEAR CLEANUP ]] --
 for _, v in pairs(CoreGui:GetChildren()) do
-    if v.Name:find("Supreme") then v:Destroy() end
+    if v.Name:find("Supreme") or v.Name == "WarningGUI" then v:Destroy() end
 end
 
 -- [[ 🏎️ GLOBAL DRAG ENGINE ]] --
@@ -29,102 +29,96 @@ local function MakeDraggable(gui)
     UIS.InputEnded:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then dragging = false end end)
 end
 
--- [[ 🔑 KEY SYSTEM ]] --
+-- [[ 🔑 KEY SYSTEM (INSTANT APPEAR) ]] --
 local KeyUI = Instance.new("ScreenGui", CoreGui); KeyUI.Name = "Supreme_Key"
-local KMain = Instance.new("Frame", KeyUI); KMain.Size = UDim2.new(0, 320, 0, 160); KMain.Position = UDim2.new(0.5, -160, 0.4, 0); KMain.BackgroundColor3 = Color3.new(0,0,0); KMain.BackgroundTransparency = 0.3; Instance.new("UICorner", KMain); MakeDraggable(KMain)
-local KTitle = Instance.new("TextLabel", KMain); KTitle.Size = UDim2.new(1, 0, 0, 40); KTitle.Text = "GHALOULIX9 V53"; KTitle.TextColor3 = Color3.new(1,1,1); KTitle.Font = "GothamBlack"; KTitle.BackgroundTransparency = 1
-local KInput = Instance.new("TextBox", KMain); KInput.Size = UDim2.new(0.8, 0, 0, 35); KInput.Position = UDim2.new(0.1, 0, 0.35, 0); KInput.PlaceholderText = "Key: GHALOULIX9"; KInput.BackgroundColor3 = Color3.new(0,0,0); KInput.TextColor3 = Color3.new(1,1,1); KInput.BackgroundTransparency = 0.5; Instance.new("UICorner", KInput)
-local KBtn = Instance.new("TextButton", KMain); KBtn.Size = UDim2.new(0.8, 0, 0, 35); KBtn.Position = UDim2.new(0.1, 0, 0.7, 0); KBtn.Text = "ENTER V53"; KBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 255); KBtn.TextColor3 = Color3.new(1,1,1); KBtn.Font = "GothamBold"; Instance.new("UICorner", KBtn)
+local KMain = Instance.new("Frame", KeyUI); KMain.Size = UDim2.new(0, 320, 0, 180); KMain.Position = UDim2.new(0.5, -160, 0.4, 0); KMain.BackgroundColor3 = Color3.new(0,0,0); KMain.BackgroundTransparency = 0.3; Instance.new("UICorner", KMain); MakeDraggable(KMain)
+local KTitle = Instance.new("TextLabel", KMain); KTitle.Size = UDim2.new(1, 0, 0, 50); KTitle.Text = "GHALOULIX9 V54\nCRYSTAL EDITION"; KTitle.TextColor3 = Color3.new(1,1,1); KTitle.Font = "GothamBlack"; KTitle.BackgroundTransparency = 1; KTitle.TextSize = 18
+local KInput = Instance.new("TextBox", KMain); KInput.Size = UDim2.new(0.8, 0, 0, 40); KInput.Position = UDim2.new(0.1, 0, 0.35, 0); KInput.PlaceholderText = "Key: GHALOULIX9"; KInput.BackgroundColor3 = Color3.new(0,0,0); KInput.TextColor3 = Color3.new(1,1,1); KInput.BackgroundTransparency = 0.5; Instance.new("UICorner", KInput)
+local KBtn = Instance.new("TextButton", KMain); KBtn.Size = UDim2.new(0.8, 0, 0, 40); KBtn.Position = UDim2.new(0.1, 0, 0.7, 0); KBtn.Text = "ACCESS SCRIPT"; KBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 255); KBtn.TextColor3 = Color3.new(1,1,1); KBtn.Font = "GothamBold"; Instance.new("UICorner", KBtn)
 
--- [[ 🚀 MAIN SCRIPT LOGIC ]] --
+-- [[ 🚀 MAIN EXECUTION ]] --
 local function StartScript()
     KeyUI:Destroy()
 
-    -- 🛡️ BOOTH CHECKER (THE ALARM)
-    local function FindBooth()
+    -- 🛡️ BOOTH DETECTION ENGINE
+    local function GetMyBooth()
         for _, b in pairs(workspace:GetDescendants()) do
             if b.Name == "Owner" and b.Value == LP.Name then return b.Parent end
         end
         return nil
     end
 
-    local myBooth = FindBooth()
+    -- ALARM SYSTEM (IF NO BOOTH)
+    local myBooth = GetMyBooth()
     if not myBooth then
         local Alarm = Instance.new("ScreenGui", CoreGui); Alarm.Name = "Supreme_Alarm"
-        local AF = Instance.new("Frame", Alarm); AF.Size = UDim2.new(1,0,1,0); AF.BackgroundColor3 = Color3.new(0.5,0,0)
-        local AT = Instance.new("TextLabel", AF); AT.Size = UDim2.new(1,0,0.3,0); AT.Position = UDim2.new(0,0,0.35,0); AT.Text = "⚠️ BOOTH NOT FOUND! ⚠️\nCLAIM A BOOTH NOW OR SCRIPT WILL NOT LOAD!"; AT.TextColor3 = Color3.new(1,1,1); AT.Font = "GothamBlack"; AT.TextSize = 30; AT.BackgroundTransparency = 1
+        local AF = Instance.new("Frame", Alarm); AF.Size = UDim2.new(1,0,1,0); AF.BackgroundColor3 = Color3.new(0.4, 0, 0); AF.BackgroundTransparency = 0.2
+        local AT = Instance.new("TextLabel", AF); AT.Size = UDim2.new(1,0,1,0); AT.Text = "⚠️ CLAIM A BOOTH TO START ⚠️"; AT.TextColor3 = Color3.new(1,1,1); AT.Font = "GothamBlack"; AT.TextSize = 35; AT.BackgroundTransparency = 1
         
-        -- Auto-detect while alarming
         task.spawn(function()
             while not myBooth do
-                myBooth = FindBooth()
-                AF.BackgroundColor3 = (tick() % 1 > 0.5) and Color3.new(0.5,0,0) or Color3.new(0.2,0,0)
-                task.wait(0.1)
+                myBooth = GetMyBooth()
+                AF.BackgroundColor3 = (tick() % 1 > 0.5) and Color3.new(0.6,0,0) or Color3.new(0.3,0,0)
+                task.wait(0.5)
             end
             Alarm:Destroy()
-            StartMainUI(myBooth)
+            RunFinalUI(myBooth)
         end)
     else
-        StartMainUI(myBooth)
+        RunFinalUI(myBooth)
     end
 end
 
-function StartMainUI(booth)
-    -- LOADING (V53 FIX: Ensure it always closes)
+function RunFinalUI(booth)
+    -- TRANSPARENT LOADING
     local LoadUI = Instance.new("ScreenGui", CoreGui); LoadUI.Name = "Supreme_Load"
-    local LMain = Instance.new("Frame", LoadUI); LMain.Size = UDim2.new(0, 380, 0, 80); LMain.Position = UDim2.new(0.5, -190, 0.45, 0); LMain.BackgroundColor3 = Color3.new(0,0,0); LMain.BackgroundTransparency = 0.3; Instance.new("UICorner", LMain); MakeDraggable(LMain)
-    local LTxt = Instance.new("TextLabel", LMain); LTxt.Size = UDim2.new(1,0,1,0); LTxt.Text = "SYNCING BOOTH DATA..."; LTxt.TextColor3 = Color3.new(1,1,1); LTxt.Font = "GothamBlack"; LTxt.BackgroundTransparency = 1
+    local LMain = Instance.new("Frame", LoadUI); LMain.Size = UDim2.new(0, 350, 0, 100); LMain.Position = UDim2.new(0.5, -175, 0.45, 0); LMain.BackgroundColor3 = Color3.new(0,0,0); LMain.BackgroundTransparency = 0.4; Instance.new("UICorner", LMain); MakeDraggable(LMain)
+    local LTxt = Instance.new("TextLabel", LMain); LTxt.Size = UDim2.new(1,0,1,0); LTxt.Text = "INJECTING CRYSTAL V54"; LTxt.TextColor3 = Color3.new(1,1,1); LTxt.Font = "GothamBlack"; LTxt.BackgroundTransparency = 1
     
-    task.wait(3) -- Shortened for faster use
+    task.wait(2) -- Super fast load
     LoadUI:Destroy()
 
-    -- MAIN HUB
+    -- CRYSTAL MENU
     local UI = Instance.new("ScreenGui", CoreGui); UI.Name = "Supreme_Main"
-    local Main = Instance.new("Frame", UI); Main.Size = UDim2.new(0,440,0,340); Main.Position = UDim2.new(0.5,-220,0.5,-170); Main.BackgroundColor3 = Color3.fromRGB(15,15,25); Main.BackgroundTransparency = 0.25; Instance.new("UICorner", Main); MakeDraggable(Main)
-    local Stroke = Instance.new("UIStroke", Main); Stroke.Thickness = 2; Stroke.Color = Color3.new(1,0,0)
+    local Main = Instance.new("Frame", UI); Main.Size = UDim2.new(0, 440, 0, 340); Main.Position = UDim2.new(0.5, -220, 0.5, -170); Main.BackgroundColor3 = Color3.fromRGB(15, 15, 30); Main.BackgroundTransparency = 0.3; Instance.new("UICorner", Main); MakeDraggable(Main)
+    local Stroke = Instance.new("UIStroke", Main); Stroke.Thickness = 2; Stroke.Color = Color3.new(0, 1, 1)
     
-    local Close = Instance.new("TextButton", Main); Close.Size = UDim2.new(0,30,0,30); Close.Position = UDim2.new(1,-35,0,5); Close.Text = "X"; Close.BackgroundColor3 = Color3.new(0.6,0,0); Close.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", Close)
-    local OpenBtn = Instance.new("TextButton", UI); OpenBtn.Size = UDim2.new(0,220,0,45); OpenBtn.Position = UDim2.new(0.05,0,0.85,0); OpenBtn.Text = "GHALOULIX9 BEST SCRIPTS"; OpenBtn.Visible = false; OpenBtn.BackgroundColor3 = Color3.fromRGB(40,0,80); OpenBtn.TextColor3 = Color3.new(1,1,1); OpenBtn.Font = "GothamBlack"; Instance.new("UICorner", OpenBtn); MakeDraggable(OpenBtn)
+    local Close = Instance.new("TextButton", Main); Close.Size = UDim2.new(0, 30, 0, 30); Close.Position = UDim2.new(1, -35, 0, 5); Close.Text = "X"; Close.BackgroundColor3 = Color3.new(0.6, 0, 0); Close.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", Close)
+    local OpenBtn = Instance.new("TextButton", UI); OpenBtn.Size = UDim2.new(0, 220, 0, 45); OpenBtn.Position = UDim2.new(0.05, 0, 0.85, 0); OpenBtn.Text = "GHALOULIX9 BEST SCRIPTS"; OpenBtn.Visible = false; OpenBtn.BackgroundColor3 = Color3.fromRGB(40, 0, 80); OpenBtn.TextColor3 = Color3.new(1, 1, 1); OpenBtn.Font = "GothamBlack"; Instance.new("UICorner", OpenBtn); MakeDraggable(OpenBtn)
 
     Close.MouseButton1Click:Connect(function() Main.Visible = false; OpenBtn.Visible = true end)
     OpenBtn.MouseButton1Click:Connect(function() Main.Visible = true; OpenBtn.Visible = false end)
 
-    local PList = Instance.new("ScrollingFrame", Main); PList.Size = UDim2.new(0.94,0,0.78,0); PList.Position = UDim2.new(0.03,0,0.18,0); PList.BackgroundTransparency = 1; PList.ScrollBarThickness = 2; Instance.new("UIListLayout", PList).Padding = UDim.new(0,5)
+    local PList = Instance.new("ScrollingFrame", Main); PList.Size = UDim2.new(0.94, 0, 0.78, 0); PList.Position = UDim2.new(0.03, 0, 0.18, 0); PList.BackgroundTransparency = 1; PList.ScrollBarThickness = 2; Instance.new("UIListLayout", PList).Padding = UDim.new(0, 5)
 
-    -- TELEPORT & CONFIRM
-    local function ProcessTarget(p)
-        if p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
-            local HRP = p.Character.HumanoidRootPart
-            local OldPos = HRP.CFrame
-            local startDonated = (p:FindFirstChild("leaderstats") and p.leaderstats.Donated.Value) or 0
+    -- MAGNET ENGINE
+    local function Magnet(target)
+        if target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+            local HRP = target.Character.HumanoidRootPart
+            local Old = HRP.CFrame
+            local startVal = target.leaderstats.Donated.Value
             
-            HRP.CFrame = booth.PrimaryPart.CFrame * CFrame.new(0,0,4)
-            
-            -- Freeze until purchase
-            local confirmed = false
+            local active = true
             task.spawn(function()
-                local timer = 0
-                while not confirmed and timer < 15 do
-                    HRP.Velocity = Vector3.new(0,0,0)
-                    HRP.CFrame = booth.PrimaryPart.CFrame * CFrame.new(0,0,4)
-                    if p.leaderstats.Donated.Value > startDonated then confirmed = true end
-                    timer = timer + 0.1
-                    task.wait(0.1)
+                local t = 0
+                while active and t < 15 do
+                    HRP.Velocity = Vector3.new(0,0,0); HRP.CFrame = booth.PrimaryPart.CFrame * CFrame.new(0,0,4)
+                    if target.leaderstats.Donated.Value > startVal then active = false end
+                    t = t + 0.1; task.wait(0.1)
                 end
-                HRP.CFrame = OldPos
+                HRP.CFrame = Old
             end)
         end
     end
 
-    -- POPULATE LIST
+    -- POPULATE
     task.spawn(function()
         while Main.Parent do
             for _, p in pairs(game.Players:GetPlayers()) do
                 if p ~= LP and not PList:FindFirstChild(p.Name) then
-                    local b = Instance.new("TextButton", PList); b.Name = p.Name; b.Size = UDim2.new(1,0,0,40); b.BackgroundColor3 = Color3.new(0,0,0); b.BackgroundTransparency = 0.5; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
-                    local d = (p:FindFirstChild("leaderstats") and p.leaderstats.Donated.Value) or 0
-                    b.Text = p.DisplayName .. " | Donated: " .. d
-                    b.MouseButton1Click:Connect(function() ProcessTarget(p) end)
+                    local b = Instance.new("TextButton", PList); b.Name = p.Name; b.Size = UDim2.new(1, 0, 0, 45); b.BackgroundColor3 = Color3.new(0,0,0); b.BackgroundTransparency = 0.5; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
+                    b.Text = p.DisplayName .. " | Donated: " .. (p:FindFirstChild("leaderstats") and p.leaderstats.Donated.Value or 0)
+                    b.MouseButton1Click:Connect(function() Magnet(p) end)
                 end
             end
             task.wait(2)
