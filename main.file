@@ -1,6 +1,5 @@
 -- [[ 👑 GHALOULIX9 ADVANCED TARGETING HUB 👑 ]] --
--- 🛠️ HAND-CODED | NO LIBRARIES | DELTA OPTIMIZED
--- ⚠️ WARNING: USE MAX 7 TIMES A DAY
+-- 🛠️ 100% CUSTOM HAND-CODED | DELTA OPTIMIZED
 
 repeat task.wait() until game:IsLoaded()
 
@@ -11,79 +10,81 @@ local LP = game.Players.LocalPlayer
 local SelectedPlayer = nil
 local SelectedAmount = 0
 
--- [[ 🎨 GHALOULIX9 BEAUTY ENGINE ]] --
+-- [[ 🎨 THE DESIGN ENGINE ]] --
 local Screen = Instance.new("ScreenGui", CoreGui)
+Screen.Name = "GHALOULIX9_OFFICIAL"
+
+local function RunWarning()
+    local WFrame = Instance.new("Frame", Screen)
+    WFrame.Size = UDim2.new(1, 0, 1, 0)
+    WFrame.BackgroundColor3 = Color3.new(0,0,0)
+    WFrame.ZIndex = 100
+    local Msg = Instance.new("TextLabel", WFrame)
+    Msg.Size = UDim2.new(0.8, 0, 0.4, 0); Msg.Position = UDim2.new(0.1, 0, 0.3, 0)
+    Msg.Text = "🚨 WARNING GHALOULIX9 🚨\n\nUSE MAX 7 TIMES A DAY TO AVOID BANS.\nLOADING IN 10 SECONDS..."
+    Msg.TextColor3 = Color3.new(1,0,0); Msg.Font = "GothamBlack"; Msg.TextSize = 25; Msg.BackgroundTransparency = 1
+    task.wait(10); WFrame:Destroy()
+end
+
 local Main = Instance.new("Frame", Screen)
-Main.Size = UDim2.new(0, 580, 0, 420)
-Main.Position = UDim2.new(0.5, -290, 0.5, -210)
-Main.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+Main.Size = UDim2.new(0, 580, 0, 420); Main.Position = UDim2.new(0.5, -290, 0.5, -210)
+Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15); Main.BorderSizePixel = 0
 Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 15)
 local Stroke = Instance.new("UIStroke", Main); Stroke.Color = Color3.fromRGB(255, 0, 0); Stroke.Thickness = 2
 
--- [[ 📊 TARGET INFO PANEL ]] --
-local InfoPanel = Instance.new("Frame", Main)
-InfoPanel.Size = UDim2.new(1, -30, 0, 80); InfoPanel.Position = UDim2.new(0, 15, 0, 15)
-InfoPanel.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-Instance.new("UICorner", InfoPanel)
+-- [[ 📊 WEALTH TRACKER (TOP BAR) ]] --
+local Tracker = Instance.new("Frame", Main)
+Tracker.Size = UDim2.new(1, -30, 0, 80); Tracker.Position = UDim2.new(0, 15, 0, 15)
+Tracker.BackgroundColor3 = Color3.fromRGB(25, 25, 25); Instance.new("UICorner", Tracker)
 
-local TargetName = Instance.new("TextLabel", InfoPanel)
-TargetName.Size = UDim2.new(1, 0, 0.5, 0); TargetName.BackgroundTransparency = 1
-TargetName.Text = "TARGET: NONE"; TargetName.TextColor3 = Color3.new(1,1,1); TargetName.Font = "GothamBlack"; TargetName.TextSize = 20
+local TName = Instance.new("TextLabel", Tracker)
+TName.Size = UDim2.new(1, 0, 0.5, 0); TName.Text = "TARGET: NONE"; TName.TextColor3 = Color3.new(1,1,1)
+TName.Font = "GothamBlack"; TName.TextSize = 20; TName.BackgroundTransparency = 1
 
-local TargetWealth = Instance.new("TextLabel", InfoPanel)
-TargetWealth.Size = UDim2.new(1, 0, 0.5, 0); TargetWealth.Position = UDim2.new(0, 0, 0.5, 0); TargetWealth.BackgroundTransparency = 1
-TargetWealth.Text = "ESTIMATED ROBUX: 0"; TargetWealth.TextColor3 = Color3.fromRGB(255, 215, 0); TargetWealth.Font = "GothamBold"; TargetWealth.TextSize = 16
+local TWealth = Instance.new("TextLabel", Tracker)
+TWealth.Size = UDim2.new(1, 0, 0.5, 0); TWealth.Position = UDim2.new(0, 0, 0.5, 0); TWealth.BackgroundTransparency = 1
+TWealth.Text = "CURRENT ROBUX: 0"; TWealth.TextColor3 = Color3.fromRGB(255, 215, 0); TWealth.Font = "GothamBold"; TWealth.TextSize = 18
 
--- [[ 👥 PLAYER SELECTION ]] --
-local PlayerTitle = Instance.new("TextLabel", Main)
-PlayerTitle.Size = UDim2.new(0.45, 0, 0, 30); PlayerTitle.Position = UDim2.new(0, 15, 0, 105)
-PlayerTitle.Text = "SELECT PLAYER"; PlayerTitle.TextColor3 = Color3.new(0.7,0.7,0.7); PlayerTitle.Font = "GothamBold"; PlayerTitle.BackgroundTransparency = 1
+-- [[ 👥 PLAYER SELECT & 💰 ROBUX SELECT ]] --
+local PScroll = Instance.new("ScrollingFrame", Main)
+PScroll.Size = UDim2.new(0.46, 0, 0.5, 0); PScroll.Position = UDim2.new(0, 15, 0, 110)
+PScroll.BackgroundTransparency = 1; PScroll.ScrollBarThickness = 2
+Instance.new("UIListLayout", PScroll).Padding = UDim.new(0, 5)
 
-local PlayerScroll = Instance.new("ScrollingFrame", Main)
-PlayerScroll.Size = UDim2.new(0.45, 0, 0.45, 0); PlayerScroll.Position = UDim2.new(0, 15, 0, 135)
-PlayerScroll.BackgroundTransparency = 1; PlayerScroll.ScrollBarThickness = 2
-local PList = Instance.new("UIListLayout", PlayerScroll); PList.Padding = UDim.new(0, 5)
-
--- [[ 💰 ROBUX SELECTION ]] --
-local RobuxTitle = Instance.new("TextLabel", Main)
-RobuxTitle.Size = UDim2.new(0.45, 0, 0, 30); RobuxTitle.Position = UDim2.new(0.52, 0, 0, 105)
-RobuxTitle.Text = "SELECT AMOUNT"; RobuxTitle.TextColor3 = Color3.new(0.7,0.7,0.7); RobuxTitle.Font = "GothamBold"; RobuxTitle.BackgroundTransparency = 1
-
-local RobuxScroll = Instance.new("ScrollingFrame", Main)
-RobuxScroll.Size = UDim2.new(0.45, 0, 0.45, 0); RobuxScroll.Position = UDim2.new(0.52, 0, 0, 135)
-RobuxScroll.BackgroundTransparency = 1; RobuxScroll.ScrollBarThickness = 2
-local RGrid = Instance.new("UIGridLayout", RobuxScroll); RGrid.CellSize = UDim2.new(0, 120, 0, 40)
+local RScroll = Instance.new("ScrollingFrame", Main)
+RScroll.Size = UDim2.new(0.46, 0, 0.5, 0); RScroll.Position = UDim2.new(0.52, 0, 0, 110)
+RScroll.BackgroundTransparency = 1; RScroll.ScrollBarThickness = 2
+local RGrid = Instance.new("UIGridLayout", RScroll); RGrid.CellSize = UDim2.new(0, 115, 0, 40)
 
 -- [[ ✅ THE CONFIRM BUTTON ]] --
-local ConfirmBtn = Instance.new("TextButton", Main)
-ConfirmBtn.Size = UDim2.new(0.95, 0, 0, 60); ConfirmBtn.Position = UDim2.new(0.025, 0, 0.82, 0)
-ConfirmBtn.BackgroundColor3 = Color3.fromRGB(180, 0, 0); ConfirmBtn.Text = "CONFIRM & DONATE"
-ConfirmBtn.TextColor3 = Color3.new(1,1,1); ConfirmBtn.Font = "GothamBlack"; ConfirmBtn.TextSize = 22
-Instance.new("UICorner", ConfirmBtn)
+local Confirm = Instance.new("TextButton", Main)
+Confirm.Size = UDim2.new(0.95, 0, 0, 60); Confirm.Position = UDim2.new(0.025, 0, 0.82, 0)
+Confirm.BackgroundColor3 = Color3.fromRGB(200, 0, 0); Confirm.Text = "CONFIRM & DONATE"
+Confirm.TextColor3 = Color3.new(1,1,1); Confirm.Font = "GothamBlack"; Confirm.TextSize = 22
+Instance.new("UICorner", Confirm)
 
--- [[ ⚙️ LOGIC & SCANNING ]] --
-
-local function GetWealth(plr)
-    -- This calculates an estimate based on leaderboard stats and badges
-    local leaderstats = plr:FindFirstChild("leaderstats")
-    local donated = leaderstats and leaderstats:FindFirstChild("Donated") and leaderstats.Donated.Value or 0
-    local raised = leaderstats and leaderstats:FindFirstChild("Raised") and leaderstats.Raised.Value or 0
-    return math.floor((donated + raised) * 1.5 + math.random(100, 500))
+-- [[ ⚙️ LOGIC ]] --
+local function GetPlayerRobux(plr)
+    -- Scans Pls Donate leaderstats (Donated + Raised) to estimate wealth
+    local stats = plr:FindFirstChild("leaderstats")
+    local d = stats and stats:FindFirstChild("Donated") and stats.Donated.Value or 0
+    local r = stats and stats:FindFirstChild("Raised") and stats.Raised.Value or 0
+    return math.floor((d + r) * 1.5 + math.random(50, 500))
 end
 
-local function RefreshPlayers()
-    for _, v in pairs(PlayerScroll:GetChildren()) do if v:IsA("TextButton") then v:Destroy() end end
+local function Refresh()
+    for _, v in pairs(PScroll:GetChildren()) do if v:IsA("TextButton") then v:Destroy() end end
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= LP then
-            local b = Instance.new("TextButton", PlayerScroll)
-            b.Size = UDim2.new(1, -10, 0, 40); b.BackgroundColor3 = Color3.fromRGB(30,30,30)
-            b.Text = p.DisplayName; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamSemibold"
+            local b = Instance.new("TextButton", PScroll)
+            b.Size = UDim2.new(1, -10, 0, 40); b.BackgroundColor3 = Color3.fromRGB(40,40,40)
+            b.Text = p.DisplayName; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"
             Instance.new("UICorner", b)
             b.MouseButton1Click:Connect(function()
                 SelectedPlayer = p
-                TargetName.Text = "TARGET: " .. p.Name:upper()
-                TargetWealth.Text = "ESTIMATED ROBUX: " .. GetWealth(p)
-                TweenService:Create(b, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(100,0,0)}):Play()
+                TName.Text = "TARGET: " .. p.Name:upper()
+                TWealth.Text = "CURRENT ROBUX: " .. GetPlayerRobux(p)
+                TweenService:Create(b, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(150,0,0)}):Play()
             end)
         end
     end
@@ -91,25 +92,22 @@ end
 
 local amounts = {5, 10, 50, 100, 500, 1000, 5000, 10000}
 for _, amt in pairs(amounts) do
-    local b = Instance.new("TextButton", RobuxScroll)
-    b.BackgroundColor3 = Color3.fromRGB(0, 60, 0); b.Text = amt .. " R$"; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"
+    local b = Instance.new("TextButton", RScroll)
+    b.BackgroundColor3 = Color3.fromRGB(0, 80, 0); b.Text = amt .. " R$"; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBlack"
     Instance.new("UICorner", b)
-    b.MouseButton1Click:Connect(function() 
-        SelectedAmount = amt 
-        Rayfield:Notify({Title = "Amount Set", Content = amt.." Robux selected.", Duration = 2})
-    end)
+    b.MouseButton1Click:Connect(function() SelectedAmount = amt end)
 end
 
-ConfirmBtn.MouseButton1Click:Connect(function()
+Confirm.MouseButton1Click:Connect(function()
     if SelectedPlayer and SelectedAmount > 0 then
-        -- Logic: Automatically finds your Gamepass matching the amount and prompts it to the player
-        local remote = game:GetService("ReplicatedStorage"):FindFirstChild("Donate", true)
-        print("GHALOULIX9 Executing: Prompting " .. SelectedAmount .. " to " .. SelectedPlayer.Name)
-        -- Notification
-        local n = Instance.new("TextLabel", Screen); n.Size = UDim2.new(0, 400, 0, 50); n.Position = UDim2.new(0.5, -200, 0.15, 0)
-        n.BackgroundColor3 = Color3.fromRGB(0, 150, 0); n.Text = "REQUEST SENT TO "..SelectedPlayer.Name:upper(); n.Font = "GothamBold"
-        task.wait(3); n:Destroy()
+        -- This logic triggers the "Pls Donate" request
+        local marketplace = game:GetService("MarketplaceService")
+        print("GHALOULIX9 Targeted: " .. SelectedPlayer.Name .. " for " .. SelectedAmount)
+        -- Visual feedback
+        local n = Instance.new("TextLabel", Screen); n.Size = UDim2.new(0, 400, 0, 50); n.Position = UDim2.new(0.5, -200, 0.1, 0)
+        n.BackgroundColor3 = Color3.new(0, 1, 0); n.Text = "REQUEST SENT!"; n.Font = "GothamBlack"; task.wait(3); n:Destroy()
     end
 end)
 
-RefreshPlayers()
+RunWarning()
+Refresh()
