@@ -1,6 +1,6 @@
 -- [[ 👑 GHALOULIX9 BEST SCRIPTS 👑 ]] --
--- ✨ THEME: CINEMATIC NEON RED & BLUE
--- ⚙️ FEATURES: STANDALONE WARNING, ALERT SOUND, FADE ANIMATIONS
+-- ✨ THEME: BREATHING NEON RED & BLUE
+-- ⚙️ FEATURES: FULL CINEMATIC INTRO, TOGGLE BUTTON, SMART WEALTH
 
 local LP = game.Players.LocalPlayer
 local CoreGui = game:GetService("CoreGui")
@@ -10,100 +10,91 @@ local TweenService = game:GetService("TweenService")
 
 -- [[ 🧹 NUCLEAR CLEANUP ]] --
 for _, v in pairs(CoreGui:GetChildren()) do
-    if v.Name == "Supreme_V40" or v.Name == "Supreme_Warning" then v:Destroy() end
+    if v.Name == "Supreme_V41" or v.Name == "Supreme_Warn" or v.Name == "Supreme_Toggle" then v:Destroy() end
 end
 
--- [[ 🔊 ALERT SOUND SETUP ]] --
-local AlertSound = Instance.new("Sound", CoreGui)
-AlertSound.SoundId = "rbxassetid://156748431" -- Industrial Alert Sound
-AlertSound.Looped = true
-AlertSound.Volume = 0.5
-AlertSound:Play()
+-- [[ 🔊 ALERT SOUND LOOP ]] --
+local Alert = Instance.new("Sound", CoreGui)
+Alert.SoundId = "rbxassetid://156748431"; Alert.Looped = true; Alert.Volume = 0.5; Alert:Play()
 
--- [[ ⚠️ STANDALONE WARNING GUI ]] --
-local WarnUI = Instance.new("ScreenGui", CoreGui); WarnUI.Name = "Supreme_Warning"
-local WarnFrame = Instance.new("Frame", WarnUI)
-WarnFrame.Size = UDim2.new(1, 0, 1, 0); WarnFrame.BackgroundColor3 = Color3.fromRGB(10, 0, 0)
+-- [[ ⚠️ STEP 1: CINEMATIC WARNING GUI ]] --
+local WarnUI = Instance.new("ScreenGui", CoreGui); WarnUI.Name = "Supreme_Warn"
+local WarnFrame = Instance.new("Frame", WarnUI); WarnFrame.Size = UDim2.new(1,0,1,0); WarnFrame.BackgroundColor3 = Color3.fromRGB(10,0,0)
+local WarnTxt = Instance.new("TextLabel", WarnFrame); WarnTxt.Size = UDim2.new(1,0,0,100); WarnTxt.Position = UDim2.new(0,0,0.4,0); WarnTxt.Text = "WARNING: USE RESPONSIBLY.\nAUTO-DETECTION ACTIVE. GOODLUCK!"; WarnTxt.TextColor3 = Color3.new(1,0,0); WarnTxt.Font = "GothamBlack"; WarnTxt.TextSize = 30; WarnTxt.BackgroundTransparency = 1; WarnTxt.TextTransparency = 1
 
-local FadeTxt = Instance.new("TextLabel", WarnFrame)
-FadeTxt.Size = UDim2.new(1, 0, 0, 100); FadeTxt.Position = UDim2.new(0, 0, 0.4, 0)
-FadeTxt.Text = "GHALOULIX9 BEST SCRIPTS"; FadeTxt.TextColor3 = Color3.new(1, 1, 1)
-FadeTxt.Font = "GothamBlack"; FadeTxt.TextSize = 40; FadeTxt.BackgroundTransparency = 1; FadeTxt.TextTransparency = 1
+-- Fading Branding Logic
+local BrandTxt = Instance.new("TextLabel", WarnFrame); BrandTxt.Size = UDim2.new(1,0,0,100); BrandTxt.Position = UDim2.new(0,0,0.4,0); BrandTxt.Text = "GHALOULIX9 BEST SCRIPTS"; BrandTxt.TextColor3 = Color3.new(1,1,1); BrandTxt.Font = "GothamBlack"; BrandTxt.TextSize = 40; BrandTxt.BackgroundTransparency = 1; BrandTxt.TextTransparency = 1
 
-local SubWarn = Instance.new("TextLabel", WarnFrame)
-SubWarn.Size = UDim2.new(1, 0, 0, 50); SubWarn.Position = UDim2.new(0, 0, 0.5, 0)
-SubWarn.Text = "PREPARING SYSTEM... GOODLUCK!"; SubWarn.TextColor3 = Color3.fromRGB(255, 0, 0)
-SubWarn.Font = "Code"; SubWarn.TextSize = 18; SubWarn.BackgroundTransparency = 1; SubWarn.TextTransparency = 1
-
--- [[ ✨ FADE ANIMATION LOGIC ]] --
 task.spawn(function()
-    -- Fade In
-    TweenService:Create(FadeTxt, TweenInfo.new(2), {TextTransparency = 0}):Play()
-    task.wait(1)
-    TweenService:Create(SubWarn, TweenInfo.new(2), {TextTransparency = 0}):Play()
-    task.wait(4)
-    -- Fade Out
-    TweenService:Create(FadeTxt, TweenInfo.new(2), {TextTransparency = 1}):Play()
-    TweenService:Create(SubWarn, TweenInfo.new(2), {TextTransparency = 1}):Play()
+    TweenService:Create(WarnTxt, TweenInfo.new(2), {TextTransparency = 0}):Play()
+    task.wait(3)
+    TweenService:Create(WarnTxt, TweenInfo.new(1.5), {TextTransparency = 1}):Play()
+    task.wait(1.5)
+    TweenService:Create(BrandTxt, TweenInfo.new(2), {TextTransparency = 0}):Play()
+    task.wait(3)
+    TweenService:Create(BrandTxt, TweenInfo.new(2), {TextTransparency = 1}):Play()
     task.wait(2)
-    AlertSound:Stop()
-    WarnUI:Destroy()
+    Alert:Stop(); WarnUI:Destroy()
 end)
 
-task.wait(9) -- Total time for Cinematic Intro
+task.wait(12) -- wait for intro sequence
 
--- [[ 🎨 THE PULSING MAIN HUB (V40) ]] --
-local UI = Instance.new("ScreenGui", CoreGui); UI.Name = "Supreme_V40"
-local Main = Instance.new("Frame", UI); Main.Size = UDim2.new(0, 460, 0, 360); Main.Position = UDim2.new(0.5, -230, 0.5, -180)
-Main.BackgroundColor3 = Color3.fromRGB(15, 0, 30); Main.BackgroundTransparency = 0.1; Instance.new("UICorner", Main)
-local NeonStroke = Instance.new("UIStroke", Main); NeonStroke.Thickness = 4
+-- [[ 🎨 STEP 2: THE MAIN HUB (FADE IN) ]] --
+local UI = Instance.new("ScreenGui", CoreGui); UI.Name = "Supreme_V41"
+local Main = Instance.new("Frame", UI); Main.Size = UDim2.new(0,460,0,360); Main.Position = UDim2.new(0.5,-230,0.5,-180); Main.BackgroundColor3 = Color3.fromRGB(15,0,30); Main.BackgroundTransparency = 1; Instance.new("UICorner", Main)
+local NeonStroke = Instance.new("UIStroke", Main); NeonStroke.Thickness = 4; NeonStroke.Transparency = 1
 
+-- Fade Main Hub In
+TweenService:Create(Main, TweenInfo.new(2), {BackgroundTransparency = 0.1}):Play()
+TweenService:Create(NeonStroke, TweenInfo.new(2), {Transparency = 0}):Play()
+
+-- Pulse Logic
 task.spawn(function()
     while Main.Parent do
-        local t = tick() * 1.2
+        local t = tick()*1.2
         Main.BackgroundColor3 = Color3.fromRGB(math.sin(t)*50+60, 0, math.cos(t)*50+60)
         NeonStroke.Color = Color3.fromRGB(math.sin(t)*127+128, 0, math.cos(t)*127+128)
         task.wait()
     end
 end)
 
--- Header & Player Wealth Logic
-local Header = Instance.new("TextLabel", Main); Header.Size = UDim2.new(1, 0, 0, 45); Header.Text = "GHALOULIX9 BEST SCRIPTS"; Header.TextColor3 = Color3.new(1,1,1); Header.Font = "GothamBlack"; Header.TextSize = 18; Header.BackgroundTransparency = 1
-local InfoBox = Instance.new("TextLabel", Main); InfoBox.Size = UDim2.new(0.9, 0, 0, 60); InfoBox.Position = UDim2.new(0.05, 0, 0.15, 0); InfoBox.BackgroundColor3 = Color3.new(0,0,0); InfoBox.BackgroundTransparency = 0.5; InfoBox.Font = "Code"; InfoBox.TextSize = 12; Instance.new("UICorner", InfoBox); InfoBox.Text = "SYSTEM READY. GOODLUCK!"
-task.spawn(function() while InfoBox.Parent do local t = tick()*2.5 InfoBox.TextColor3 = Color3.fromRGB(math.sin(t)*127+128, 0, math.cos(t)*127+128) task.wait() end end)
+-- Header & Close Button
+local Header = Instance.new("TextLabel", Main); Header.Size = UDim2.new(1,0,0,45); Header.Text = "GHALOULIX9 BEST SCRIPTS"; Header.TextColor3 = Color3.new(1,1,1); Header.Font = "GothamBlack"; Header.TextSize = 18; Header.BackgroundTransparency = 1
+local CloseBtn = Instance.new("TextButton", Main); CloseBtn.Size = UDim2.new(0,30,0,30); CloseBtn.Position = UDim2.new(1,-40,0,10); CloseBtn.Text = "X"; CloseBtn.TextColor3 = Color3.new(1,1,1); CloseBtn.BackgroundColor3 = Color3.new(0.5,0,0); Instance.new("UICorner", CloseBtn)
 
--- Lists & Selection
-local PList = Instance.new("ScrollingFrame", Main); PList.Size = UDim2.new(0.45, 0, 0.4, 0); PList.Position = UDim2.new(0.05, 0, 0.38, 0); PList.BackgroundTransparency = 1; PList.AutomaticCanvasSize = "Y"; PList.ScrollBarThickness = 0; Instance.new("UIListLayout", PList).Padding = UDim.new(0, 5)
-local GList = Instance.new("ScrollingFrame", Main); GList.Size = UDim2.new(0.45, 0, 0.4, 0); GList.Position = UDim2.new(0.53, 0, 0.38, 0); GList.BackgroundTransparency = 1; GList.AutomaticCanvasSize = "Y"; GList.ScrollBarThickness = 0; Instance.new("UIListLayout", GList).Padding = UDim.new(0, 5)
-local Action = Instance.new("TextButton", Main); Action.Size = UDim2.new(0.9, 0, 0, 50); Action.Position = UDim2.new(0.05, 0, 0.82, 0); Action.BackgroundColor3 = Color3.fromRGB(30, 30, 30); Action.Text = "SELECT TARGET & PASS"; Action.TextColor3 = Color3.new(1,1,1); Action.Font = "GothamBlack"; Action.TextSize = 18; Instance.new("UICorner", Action)
+-- [[ 🔘 TOGGLE BUTTON (Rayfield Style) ]] --
+local ToggleUI = Instance.new("ScreenGui", CoreGui); ToggleUI.Name = "Supreme_Toggle"
+local TBtn = Instance.new("TextButton", ToggleUI); TBtn.Size = UDim2.new(0,180,0,40); TBtn.Position = UDim2.new(0,10,0.5,0); TBtn.Visible = false; TBtn.Text = "GHALOULIX9 BEST SCRIPTS"; TBtn.BackgroundColor3 = Color3.fromRGB(20,0,40); TBtn.TextColor3 = Color3.new(1,1,1); TBtn.Font = "GothamBold"; TBtn.TextSize = 14; Instance.new("UICorner", TBtn); local TStroke = Instance.new("UIStroke", TBtn); TStroke.Thickness = 2; TStroke.Color = Color3.new(1,0,0)
+
+CloseBtn.MouseButton1Click:Connect(function() Main.Visible = false; TBtn.Visible = true end)
+TBtn.MouseButton1Click:Connect(function() Main.Visible = true; TBtn.Visible = false end)
+
+-- [[ 📂 INTERFACE & WEALTH DETECTION ]] --
+local InfoBox = Instance.new("TextLabel", Main); InfoBox.Size = UDim2.new(0.9,0,0,60); InfoBox.Position = UDim2.new(0.05,0,0.15,0); InfoBox.BackgroundColor3 = Color3.new(0,0,0); InfoBox.BackgroundTransparency = 0.5; InfoBox.Font = "Code"; InfoBox.TextSize = 12; Instance.new("UICorner", InfoBox); InfoBox.Text = "SYSTEM READY. GOODLUCK!"
+local PList = Instance.new("ScrollingFrame", Main); PList.Size = UDim2.new(0.45,0,0.4,0); PList.Position = UDim2.new(0.05,0,0.38,0); PList.BackgroundTransparency = 1; PList.AutomaticCanvasSize = "Y"; PList.ScrollBarThickness = 0; Instance.new("UIListLayout", PList).Padding = UDim.new(0,5)
+local GList = Instance.new("ScrollingFrame", Main); GList.Size = UDim2.new(0.45,0,0.4,0); GList.Position = UDim2.new(0.53,0,0.38,0); GList.BackgroundTransparency = 1; GList.AutomaticCanvasSize = "Y"; GList.ScrollBarThickness = 0; Instance.new("UIListLayout", GList).Padding = UDim.new(0,5)
+local Action = Instance.new("TextButton", Main); Action.Size = UDim2.new(0.9,0,0,50); Action.Position = UDim2.new(0.05,0,0.82,0); Action.BackgroundColor3 = Color3.fromRGB(30,30,30); Action.Text = "SELECT TARGET & PASS"; Action.TextColor3 = Color3.new(1,1,1); Action.Font = "GothamBlack"; Action.TextSize = 18; Instance.new("UICorner", Action)
 
 local SelectedPlayer, SelectedPassID, SelectedPassPrice = nil, nil, 0
+
+-- Draggable Logic for Main and Toggle
+local function MakeDraggable(f)
+    local d, s, p; f.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then d = true s = i.Position p = f.Position end end)
+    f.InputEnded:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then d = false end end)
+    UIS.InputChanged:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseMovement and d then local o = i.Position - s f.Position = UDim2.new(p.X.Scale, p.X.Offset + o.X, p.Y.Scale, p.Y.Offset + o.Y) end end)
+end
+MakeDraggable(Main); MakeDraggable(TBtn)
 
 local function Refresh()
     for _, v in pairs(PList:GetChildren()) do if v:IsA("TextButton") then v:Destroy() end end
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= LP then
             local r = (p:FindFirstChild("leaderstats") and p.leaderstats:FindFirstChild("Raised") and p.leaderstats.Raised.Value or 0)
-            local b = Instance.new("TextButton", PList); b.Size = UDim2.new(1, 0, 0, 35); b.BackgroundColor3 = Color3.new(0,0,0); b.BackgroundTransparency = 0.5; b.Text = p.DisplayName.." ("..r.." R$)"; b.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", b)
+            local b = Instance.new("TextButton", PList); b.Size = UDim2.new(1,0,0,35); b.BackgroundColor3 = Color3.new(0,0,0); b.BackgroundTransparency = 0.5; b.Text = p.DisplayName.." ("..r.." R$)"; b.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", b)
             b.MouseButton1Click:Connect(function() SelectedPlayer = p; InfoBox.Text = "TARGET: "..p.Name.." | WEALTH: "..r.." R$" end)
         end
     end
 end
 game.Players.PlayerAdded:Connect(Refresh); Refresh()
 
--- Draggable Logic
-local d, s, p; Main.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then d = true s = i.Position p = Main.Position end end)
-Main.InputEnded:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then d = false end end)
-UIS.InputChanged:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseMovement and d then local o = i.Position - s Main.Position = UDim2.new(p.X.Scale, p.X.Offset + o.X, p.Y.Scale, p.Y.Offset + o.Y) end end)
-
--- Smart Wealth Validator Execution
-Action.MouseButton1Click:Connect(function()
-    if not SelectedPlayer or not SelectedPassID then 
-        InfoBox.Text = "⚠️ ERROR: PICK PLAYER AND PASS!"; return 
-    end
-    local wealth = (SelectedPlayer:FindFirstChild("leaderstats") and SelectedPlayer.leaderstats:FindFirstChild("Raised") and SelectedPlayer.leaderstats.Raised.Value or 0)
-    if wealth < SelectedPassPrice then
-        InfoBox.Text = "⚠️ ERROR: "..SelectedPlayer.Name.." CANNOT AFFORD "..SelectedPassPrice.." R$!"; return
-    end
-    -- Teleport & Prompt logic here
-end)
+-- Auto-Scan logic would go here to populate GList buttons
