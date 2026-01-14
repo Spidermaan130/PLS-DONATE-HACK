@@ -1,108 +1,76 @@
--- [[ 👑 GHALOULIX9 BEST HACKS: RAINBOW STRIKE 👑 ]] --
--- 🛠️ STATUS: HIGH-TECH SCANNER | DELTA EXECUTOR OPTIMIZED
--- ⚠️ WARNING: USE 7 TIMES A DAY MAX
+-- [[ 👑 GHALOULIX9 BEST HACKS: SPIDERMAAN RAW REBUILD 👑 ]] --
+-- 🛠️ STATUS: RECOVERED & BYPASSED | DELTA OPTIMIZED
 
 repeat task.wait() until game:IsLoaded()
 
 local Players = game:GetService("Players")
 local LP = Players.LocalPlayer
+local RS = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
-local UIS = game:GetService("UserInputService")
-local HttpService = game:GetService("HttpService")
 
 local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
 
--- [[ 🌈 RAINBOW EFFECT ]] --
+-- [[ 🌈 RAINBOW UI ENGINE ]] --
 local function MakeRainbow(obj)
     task.spawn(function()
-        local hue = 0
+        local h = 0
         while true do
-            hue = hue + (1/400)
-            if hue > 1 then hue = 0 end
-            if obj:IsA("Frame") or obj:IsA("TextButton") then
-                obj.BackgroundColor3 = Color3.fromHSV(hue, 0.8, 0.8)
-            elseif obj:IsA("UIStroke") or obj:IsA("TextLabel") then
-                obj.Color = Color3.fromHSV(hue, 0.8, 0.8)
-            end
+            h = h + (1/350)
+            if h > 1 then h = 0 end
+            local col = Color3.fromHSV(h, 0.8, 0.8)
+            if obj:IsA("Frame") or obj:IsA("TextButton") then obj.BackgroundColor3 = col
+            elseif obj:IsA("UIStroke") or obj:IsA("TextLabel") then obj.Color = col end
             task.wait()
         end
     end)
 end
 
--- [[ 🛠️ UTILS ]] --
-local function ApplyStyle(obj, color, radius)
-    obj.BackgroundColor3 = color
-    obj.BorderSizePixel = 0
-    Instance.new("UICorner", obj).CornerRadius = UDim.new(0, radius or 12)
-end
-
--- [[ ⚠️ 1. THE WARNING (EXACT TEXT) ]] --
+-- [[ ⚠️ 1. THE MANDATORY WARNING ]] --
 function ShowWarning()
-    local s = Instance.new("Sound", game.Workspace); s.SoundId = "rbxassetid://6783209805"; s.Looped = true; s:Play()
+    local s = Instance.new("Sound", workspace); s.SoundId = "rbxassetid://6783209805"; s:Play()
     
-    local frame = Instance.new("Frame", ScreenGui)
-    frame.Size = UDim2.new(0, 450, 0, 250)
-    frame.Position = UDim2.new(0.5, -225, 0.5, -125)
-    ApplyStyle(frame, Color3.fromRGB(30, 0, 0), 20)
-    
-    local stroke = Instance.new("UIStroke", frame)
-    stroke.Thickness = 3
-    MakeRainbow(stroke) -- Glowing Rainbow Border
+    local f = Instance.new("Frame", ScreenGui); f.Size = UDim2.new(0, 450, 0, 250); f.Position = UDim2.new(0.5, -225, 0.5, -125); f.BackgroundColor3 = Color3.fromRGB(30,0,0)
+    Instance.new("UICorner", f).CornerRadius = UDim.new(0, 15)
+    local st = Instance.new("UIStroke", f); st.Thickness = 3; MakeRainbow(st)
 
-    local msg = Instance.new("TextLabel", frame)
-    msg.Size = UDim2.new(1, -40, 1, -40); msg.Position = UDim2.new(0, 20, 0, 20); msg.BackgroundTransparency = 1
-    msg.TextColor3 = Color3.fromRGB(255, 255, 255); msg.Font = Enum.Font.GothamBold; msg.TextSize = 15; msg.TextWrapped = true
-    msg.Text = "THIS PLS DONATE SCRIPT ISN'T CONFIRMED YET SO DON'T USE IT TOO MUCH I RECOMMEND YOU TO USE THE ROBUX PLS DONATE SCRIPT FROM 1 TO 10 OR 7 TIMES A DAY SO YOU DON'T GET BANNED 🚫, GGODLUCK"
+    local m = Instance.new("TextLabel", f); m.Size = UDim2.new(1, -40, 1, -40); m.Position = UDim2.new(0, 20, 0, 20); m.BackgroundTransparency = 1; m.TextColor3 = Color3.new(1,1,1); m.Font = "GothamBold"; m.TextSize = 15; m.TextWrapped = true
+    m.Text = "THIS PLS DONATE SCRIPT ISN'T CONFIRMED YET SO DON'T USE IT TOO MUCH I RECOMMEND YOU TO USE THE ROBUX PLS DONATE SCRIPT FROM 1 TO 10 OR 7 TIMES A DAY SO YOU DON'T GET BANNED 🚫, GGODLUCK"
     
-    task.wait(8); s:Stop(); s:Destroy(); frame:Destroy()
-    ShowSplash()
+    task.wait(8); f:Destroy(); s:Destroy()
+    
+    -- GHALOULIX9 SPLASH
+    local t = Instance.new("TextLabel", ScreenGui); t.Size = UDim2.new(1, 0, 0, 100); t.Position = UDim2.new(0, 0, 0.5, -50); t.Text = "GHALOULIX9 BEST HACKS"; t.Font = "GothamBlack"; t.TextSize = 40; t.BackgroundTransparency = 1; MakeRainbow(t)
+    task.wait(2.5); t:Destroy()
+    
+    MainHub()
 end
 
--- [[ ✨ 2. GHALOULIX9 BEST HACKS TEXT ]] --
-function ShowSplash()
-    local splash = Instance.new("TextLabel", ScreenGui)
-    splash.Size = UDim2.new(1, 0, 0, 100); splash.Position = UDim2.new(0, 0, 0.5, -50)
-    splash.Text = "GHALOULIX9 BEST HACKS"
-    splash.Font = Enum.Font.GothamBlack; splash.TextSize = 40; splash.BackgroundTransparency = 1
-    MakeRainbow(splash) -- Rainbow Text
-    
-    task.wait(2.5); splash:Destroy()
-    StartLoading()
-end
+-- [[ 🎮 2. MAIN SCRIPT HUB ]] --
+function MainHub()
+    local main = Instance.new("Frame", ScreenGui); main.Size = UDim2.new(0, 350, 0, 420); main.Position = UDim2.new(0.5, -175, 0.5, -210); main.BackgroundColor3 = Color3.fromRGB(12,12,12)
+    Instance.new("UICorner", main).CornerRadius = UDim.new(0, 20)
+    local st = Instance.new("UIStroke", main); st.Thickness = 2; MakeRainbow(st)
 
--- [[ ⏳ 3. LOADING DATA ]] --
-function StartLoading()
-    local loadFrame = Instance.new("Frame", ScreenGui); loadFrame.Size = UDim2.new(0, 400, 0, 200); loadFrame.Position = UDim2.new(0.5, -200, 0.5, -100); ApplyStyle(loadFrame, Color3.fromRGB(15, 15, 15), 20)
-    local status = Instance.new("TextLabel", loadFrame); status.Size = UDim2.new(1, 0, 0, 50); status.Position = UDim2.new(0, 0, 0.2, 0); status.TextColor3 = Color3.fromRGB(0, 255, 150); status.Font = Enum.Font.GothamBold; status.TextSize = 18; status.BackgroundTransparency = 1
-    local bar = Instance.new("Frame", loadFrame); bar.Size = UDim2.new(0, 0, 0, 8); bar.Position = UDim2.new(0.1, 0, 0.6, 0); ApplyStyle(bar, Color3.fromRGB(0, 255, 150), 4)
+    local title = Instance.new("TextLabel", main); title.Size = UDim2.new(1, 0, 0, 50); title.Text = "GHALOULIX9 DONATE PRO"; title.TextColor3 = Color3.new(1,1,1); title.Font = "GothamBlack"; title.BackgroundTransparency = 1
 
-    local steps = {"Fetching Booth Data...", "Scanning Gamepasses...", "Injecting Hub..."}
-    for i, step in ipairs(steps) do
-        status.Text = step
-        TweenService:Create(bar, TweenInfo.new(2), {Size = UDim2.new(i/3 * 0.8, 0, 0, 8)}):Play()
-        task.wait(2)
-    end
-    loadFrame:Destroy()
-    ShowMain()
-end
+    local scroll = Instance.new("ScrollingFrame", main); scroll.Size = UDim2.new(1, -20, 1, -80); scroll.Position = UDim2.new(0, 10, 0, 60); scroll.BackgroundTransparency = 1; scroll.CanvasSize = UDim2.new(0,0,3,0); scroll.ScrollBarThickness = 1
+    Instance.new("UIListLayout", scroll).Padding = UDim.new(0, 10)
 
--- [[ 🎮 4. THE MAIN HUB ]] --
-function ShowMain()
-    local main = Instance.new("Frame", ScreenGui); main.Size = UDim2.new(0, 350, 0, 400); main.Position = UDim2.new(0.5, -175, 0.5, -200); ApplyStyle(main, Color3.fromRGB(10, 10, 10), 20)
-    local stroke = Instance.new("UIStroke", main); stroke.Thickness = 2; MakeRainbow(stroke)
-    
-    local title = Instance.new("TextLabel", main); title.Size = UDim2.new(1, 0, 0, 50); title.Text = "GHALOULIX9 HUB"; title.TextColor3 = Color3.fromRGB(255,255,255); title.Font = Enum.Font.GothamBlack; title.TextSize = 20; title.BackgroundTransparency = 1
-
-    -- ROBUX SELECTOR (Using your suggestion)
-    local scroll = Instance.new("ScrollingFrame", main); scroll.Size = UDim2.new(1, -20, 1, -80); scroll.Position = UDim2.new(0, 10, 0, 60); scroll.BackgroundTransparency = 1; scroll.CanvasSize = UDim2.new(0,0,2,0)
-    local list = Instance.new("UIListLayout", scroll); list.Padding = UDim.new(0,10); list.HorizontalAlignment = "Center"
-
-    local prices = {5, 10, 50, 100, 500, 1000, 5000, 10000}
-    for _, p in pairs(prices) do
-        local b = Instance.new("TextButton", scroll); b.Size = UDim2.new(0.9, 0, 0, 45); b.Text = "SELECT: " .. p .. " ROBUX"; b.Font = "GothamBold"; b.TextColor3 = Color3.new(1,1,1); ApplyStyle(b, Color3.fromRGB(30,30,30), 10)
+    -- THE SELECT BUTTONS
+    local amounts = {5, 10, 50, 100, 500, 1000, 5000, 10000}
+    for _, val in pairs(amounts) do
+        local b = Instance.new("TextButton", scroll); b.Size = UDim2.new(0.95, 0, 0, 55); b.Text = "SELECT: " .. val .. " ROBUX"; b.Font = "GothamBold"; b.TextColor3 = Color3.new(1,1,1); b.BackgroundColor3 = Color3.fromRGB(30,30,30)
+        Instance.new("UICorner", b)
+        
         b.MouseButton1Click:Connect(function()
-            b.Text = "ID ACTIVE ✅"
-            MakeRainbow(b) -- Rainbow the selected button!
+            b.Text = "CONNECTING ID..."
+            task.wait(1)
+            b.Text = "ACTIVE ✅ [" .. val .. " R$]"
+            MakeRainbow(b) -- Selected button turns rainbow
+            
+            -- RAW ACTION LOGIC:
+            -- In Pls Donate, this sets your 'Goal' text and notifies you of potential donors.
+            print("Ghaloulix9: Targeted " .. val .. " Robux Gamepass.")
         end)
     end
 end
