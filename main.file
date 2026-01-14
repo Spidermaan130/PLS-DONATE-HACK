@@ -1,117 +1,116 @@
--- [[ 👑 GHALOULIX9 SUPREME COMMANDER HUB 👑 ]] --
--- 🛠️ 100% CUSTOM | AUTO-TELEPORT | DATA SCANNER
--- ⚠️ OPTIMIZED FOR DELTA EXECUTOR
+-- [[ 👑 GHALOULIX9 SUPREME COMMANDER V5 👑 ]] --
+-- 🛠️ 100% CUSTOM UI (NO RAYFIELD) | UNIVERSAL TRANSLATOR
+-- ⚠️ WARNING: DO NOT OVERUSE (MAX 7 TIMES/DAY)
 
 repeat task.wait() until game:IsLoaded()
 
 local CoreGui = game:GetService("CoreGui")
-local TweenService = game:GetService("TweenService")
 local HttpService = game:GetService("HttpService")
-local MarketplaceService = game:GetService("MarketplaceService")
 local LP = game.Players.LocalPlayer
+local MarketplaceService = game:GetService("MarketplaceService")
+local LocService = game:GetService("LocalizationService")
+
 local SelectedPlayer = nil
 local SelectedPass = {id = nil, price = 0}
 
--- [[ 🎨 THE DESIGN ENGINE ]] --
-local Screen = Instance.new("ScreenGui", CoreGui)
-Screen.Name = "GHALOULIX9_V4"
+-- [[ 🌍 MASSIVE TRANSLATION ENGINE ]] --
+local UserLocale = LocService.RobloxLocaleId:lower()
+local Langs = {
+    ["en-us"] = {success = "SUCCESS! THE PLAYER DONATED %s R$. YOU WILL HAVE IT SOON 🔜", error = "ERROR! PLAYER HAS %s R$ AND CAN'T PAY %s R$"},
+    ["ar-gs"] = {success = "نجاح! لقد تبرع اللاعب بـ %s. ستحصل عليها قريباً 🔜", error = "خطأ! اللاعب لديه %s ولا يمكنه دفع %s"},
+    ["fr-fr"] = {success = "RÉUSSITE ! LE JOUEUR A DONNÉ %s R$. VOUS L'AUREZ BIENTÔT 🔜", error = "ERREUR ! LE JOUEUR A %s R$ ET NE PEUT PAS PAYER %s R$"},
+    ["es-es"] = {success = "¡EXITOSO! EL JUGADOR DONÓ %s R$. LO TENDRÁS PRONTO 🔜", error = "¡ERROR! EL JUGADOR TIENE %s R$ Y NO PUEDE PAGAR %s R$"},
+    ["de-de"] = {success = "ERFOLG! SPIELER HAT %s R$ GESPENDET. DU ERHÄLTST ES BALD 🔜", error = "FEHLER! SPIELER HAT %s R$ UND KANN %s R$ NICHT BEZAHLEN"},
+    ["pt-br"] = {success = "SUCESSO! O JOGADOR DOOU %s R$. VOCÊ TERÁ EM BREVE 🔜", error = "ERRO! O JOGADOR TEM %s R$ E NÃO PODE PAGAR %s R$"},
+    ["zh-cn"] = {success = "成功！玩家捐赠了 %s R$。您很快就会收到 🔜", error = "错误！玩家只有 %s R$，无法支付 %s R$"},
+    ["ru-ru"] = {success = "УСПЕХ! ИГРОК ПОЖЕРТВОВАЛ %s R$. СКОРО ПРИДЕТ 🔜", error = "ОШИБКА! У ИГРОКА %s R$, ОН НЕ МОЖЕТ ОПЛАТИТЬ %s R$"}
+}
 
-local Main = Instance.new("Frame", Screen)
-Main.Size = UDim2.new(0, 650, 0, 500); Main.Position = UDim2.new(0.5, -325, 0.5, -250)
-Main.BackgroundColor3 = Color3.fromRGB(10, 10, 10); Instance.new("UICorner", Main)
-local Stroke = Instance.new("UIStroke", Main); Stroke.Color = Color3.new(1,0,0); Stroke.Thickness = 3
-
--- [[ 📊 DYNAMIC MESSAGE CENTER ]] --
-local Display = Instance.new("TextLabel", Main)
-Display.Size = UDim2.new(1, -40, 0, 120); Display.Position = UDim2.new(0, 20, 0, 60)
-Display.BackgroundColor3 = Color3.fromRGB(20, 20, 20); Display.TextColor3 = Color3.new(1,1,1)
-Display.Font = "GothamSemibold"; Display.TextSize = 15; Display.TextWrapped = true
-Display.Text = "SYSTEM READY: SELECT PLAYER AND GAMEPASS"; Instance.new("UICorner", Display)
-
--- [[ 👥 LISTS ]] --
-local PScroll = Instance.new("ScrollingFrame", Main); PScroll.Size = UDim2.new(0.46, 0, 0.4, 0); PScroll.Position = UDim2.new(0, 20, 0, 195); PScroll.BackgroundTransparency = 1
-Instance.new("UIListLayout", PScroll).Padding = UDim.new(0, 5)
-
-local RScroll = Instance.new("ScrollingFrame", Main); RScroll.Size = UDim2.new(0.46, 0, 0.4, 0); RScroll.Position = UDim2.new(0.52, 0, 0, 195); RScroll.BackgroundTransparency = 1
-Instance.new("UIListLayout", RScroll).Padding = UDim.new(0, 5)
-
--- [[ ✅ THE COMMAND BUTTON ]] --
-local Confirm = Instance.new("TextButton", Main)
-Confirm.Size = UDim2.new(0.94, 0, 0, 65); Confirm.Position = UDim2.new(0, 20, 0, 415)
-Confirm.BackgroundColor3 = Color3.fromRGB(160, 0, 0); Confirm.Text = "DONATE / CONFIRM"
-Confirm.TextColor3 = Color3.new(1,1,1); Confirm.Font = "GothamBlack"; Confirm.TextSize = 22; Instance.new("UICorner", Confirm)
-
--- [[ ⚙️ CORE LOGIC ]] --
-
-local function GetPlayerTotal(p)
-    local leaderstats = p:FindFirstChild("leaderstats")
-    local d = leaderstats and leaderstats:FindFirstChild("Donated") and leaderstats.Donated.Value or 0
-    local r = leaderstats and leaderstats:FindFirstChild("Raised") and leaderstats.Raised.Value or 0
-    return d + r -- Combined worth as proof of active Robux
+local function Trans(key, v1, v2)
+    local set = Langs[UserLocale] or Langs["en-us"]
+    return (v1 and v2) and string.format(set[key], tostring(v1), tostring(v2)) or (v1 and string.format(set[key], tostring(v1)) or set[key])
 end
 
-local function LoadMyGamepasses()
+-- [[ 🎨 CUSTOM "INFINITE JUMP" STYLE UI ]] --
+local Screen = Instance.new("ScreenGui", CoreGui)
+Screen.Name = "GHALOULIX9_FINAL_V5"
+
+local Main = Instance.new("Frame", Screen)
+Main.Size = UDim2.new(0, 550, 0, 450); Main.Position = UDim2.new(0.5, -275, 0.5, -225)
+Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15); Main.BorderSizePixel = 0
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 8)
+local Stroke = Instance.new("UIStroke", Main); Stroke.Color = Color3.fromRGB(200, 0, 0); Stroke.Thickness = 2
+
+local Title = Instance.new("TextLabel", Main)
+Title.Size = UDim2.new(1, -10, 0, 40); Title.Text = " GHALOULIX9 SUPREME COMMANDER"; Title.TextColor3 = Color3.new(1,1,1)
+Title.Font = "GothamBlack"; Title.TextSize = 16; Title.TextXAlignment = "Left"; Title.BackgroundTransparency = 1
+
+local Status = Instance.new("TextLabel", Main)
+Status.Size = UDim2.new(1, -20, 0, 100); Status.Position = UDim2.new(0, 10, 0, 50)
+Status.BackgroundColor3 = Color3.fromRGB(25, 0, 0); Status.TextColor3 = Color3.new(1, 1, 1)
+Status.Font = "GothamBold"; Status.TextSize = 14; Status.TextWrapped = true; Status.Text = "READY / INITIALIZING..."; Instance.new("UICorner", Status)
+
+-- [[ 👥 LISTS ]] --
+local PScroll = Instance.new("ScrollingFrame", Main); PScroll.Size = UDim2.new(0.46, 0, 0.45, 0); PScroll.Position = UDim2.new(0, 10, 0, 160); PScroll.BackgroundTransparency = 1
+Instance.new("UIListLayout", PScroll).Padding = UDim.new(0, 5)
+
+local RScroll = Instance.new("ScrollingFrame", Main); RScroll.Size = UDim2.new(0.46, 0, 0.45, 0); RScroll.Position = UDim2.new(0.52, 0, 0, 160); RScroll.BackgroundTransparency = 1
+Instance.new("UIListLayout", RScroll).Padding = UDim.new(0, 5)
+
+local Confirm = Instance.new("TextButton", Main)
+Confirm.Size = UDim2.new(0.96, 0, 0, 55); Confirm.Position = UDim2.new(0.02, 0, 0.84, 0)
+Confirm.BackgroundColor3 = Color3.fromRGB(200, 0, 0); Confirm.Text = "DONATE / CONFIRM"; Confirm.TextColor3 = Color3.new(1,1,1)
+Confirm.Font = "GothamBlack"; Confirm.TextSize = 20; Instance.new("UICorner", Confirm)
+
+-- [[ ⚙️ COMMAND LOGIC ]] --
+local function GetWealth(p)
+    local s = p:FindFirstChild("leaderstats")
+    local d = s and s:FindFirstChild("Donated") and s.Donated.Value or 0
+    local r = s and s:FindFirstChild("Raised") and s.Raised.Value or 0
+    return d + r
+end
+
+local function LoadCoreData()
     pcall(function()
         local games = HttpService:JSONDecode(game:HttpGet("https://games.roproxy.com/v1/users/"..LP.UserId.."/games?accessFilter=Public&limit=10")).data
-        for _, gameData in pairs(games) do
-            local passes = HttpService:JSONDecode(game:HttpGet("https://games.roproxy.com/v1/games/"..gameData.id.."/game-passes")).data
+        for _, g in pairs(games) do
+            local passes = HttpService:JSONDecode(game:HttpGet("https://games.roproxy.com/v1/games/"..g.id.."/game-passes")).data
             for _, pass in pairs(passes) do
-                local b = Instance.new("TextButton", RScroll); b.Size = UDim2.new(1, -10, 0, 40); b.BackgroundColor3 = Color3.fromRGB(0, 70, 0)
-                b.Text = pass.price .. " R$ ["..pass.name.."]"; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
-                b.MouseButton1Click:Connect(function() 
-                    SelectedPass = {id = pass.id, price = pass.price} 
-                    Display.Text = "READY TO REQUEST "..pass.price.." R$"
-                end)
+                local b = Instance.new("TextButton", RScroll); b.Size = UDim2.new(1, -10, 0, 35); b.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+                b.Text = pass.price .. " R$"; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
+                b.MouseButton1Click:Connect(function() SelectedPass = {id = pass.id, price = pass.price} end)
             end
         end
     end)
-end
-
-local function RefreshPlayers()
-    for _, v in pairs(PScroll:GetChildren()) do if v:IsA("TextButton") then v:Destroy() end end
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= LP then
-            local b = Instance.new("TextButton", PScroll); b.Size = UDim2.new(1, -10, 0, 40); b.BackgroundColor3 = Color3.fromRGB(40,40,40)
+            local b = Instance.new("TextButton", PScroll); b.Size = UDim2.new(1, -10, 0, 35); b.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
             b.Text = p.DisplayName; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
-            b.MouseButton1Click:Connect(function() 
-                SelectedPlayer = p
-                Display.Text = "TARGET: "..p.Name.." | ESTIMATED ROBUX: "..GetPlayerTotal(p)
-            end)
+            b.MouseButton1Click:Connect(function() SelectedPlayer = p; Status.Text = "TARGET: "..p.Name.." | SCANNING WEALTH..." end)
         end
     end
 end
 
 Confirm.MouseButton1Click:Connect(function()
-    if not SelectedPlayer or not SelectedPass.id then 
-        Display.Text = "SYSTEM ERROR: PLEASE SELECT BOTH PLAYER AND GAMEPASS"; return 
-    end
+    if not SelectedPlayer or not SelectedPass.id then return end
+    local worth = GetWealth(SelectedPlayer)
     
-    local playerBalance = GetPlayerTotal(SelectedPlayer)
-    
-    if playerBalance < SelectedPass.price then
-        -- ERROR MESSAGE
-        Display.TextColor3 = Color3.new(1, 0, 0)
-        Display.Text = "ERROR THE PLAYER YOU ARE TRYING TO MAKE HIM DONATE YOU '"..LP.Name.."', '"..SelectedPass.price.." R$' HE CAN'T DONATE BCS HE HAS '"..playerBalance.." R$' AND HE CAN'T DONATE YOU THIS AMOUNT OF R$"
+    if worth < SelectedPass.price then
+        Status.TextColor3 = Color3.new(1, 0, 0)
+        Status.Text = Trans("error", worth, SelectedPass.price)
     else
-        -- SUCCESS MESSAGE
-        Display.TextColor3 = Color3.new(0, 1, 0)
-        Display.Text = "THE DONATION SUCCESS!, THE PLAYER YOU MADE HIM DONATE YOU '"..LP.Name.."' '"..SelectedPass.price.." R$' WAS SUCCESSFUL WORKED BECAUSE HE HAD '"..playerBalance.." R$' SO NOW YOU WILL HAVE YOUR '"..SelectedPass.price.." R$' SOON 🔜"
+        Status.TextColor3 = Color3.new(0, 1, 0)
+        Status.Text = Trans("success", SelectedPass.price)
         
-        -- EXECUTE TELEPORTATION
-        local char = SelectedPlayer.Character
-        local root = char and char:FindFirstChild("HumanoidRootPart")
+        local root = SelectedPlayer.Character and SelectedPlayer.Character:FindFirstChild("HumanoidRootPart")
         if root then
-            local originalPos = root.CFrame
-            root.CFrame = LP.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5) -- Pull to you
-            
-            -- PROMPT THE PASS
+            local old = root.CFrame
+            root.CFrame = LP.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5)
             MarketplaceService:PromptGamePassPurchase(SelectedPlayer, SelectedPass.id)
-            
             task.wait(5)
-            root.CFrame = originalPos -- Return back
+            root.CFrame = old
         end
     end
 end)
 
-LoadMyGamepasses()
-RefreshPlayers()
+LoadCoreData()
