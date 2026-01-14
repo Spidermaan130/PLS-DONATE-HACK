@@ -1,20 +1,24 @@
--- [[ 👑 GHALOULIX9 SUPREME COMMANDER V15 👑 ]] --
--- 🛠️ 100% RAW LUA | ZERO RAYFIELD | ZERO LIBRARIES
--- ✨ STYLE: EXTREMELY BEAUTIFUL BLOOD-NEON | DELTA OPTIMIZED
+-- [[ 👑 GHALOULIX9 SUPREME V16 👑 ]] --
+-- 🛠️ STARTING FROM ZERO | 100% RAW LUA | NO LIBRARIES
+-- ✨ THEME: BLOOD-NEON MASTERPIECE | DRAGGABLE | BEAUTIFUL
 
 repeat task.wait() until game:IsLoaded()
 
+local LP = game.Players.LocalPlayer
 local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
 local MarketService = game:GetService("MarketplaceService")
 local HttpService = game:GetService("HttpService")
-local LP = game.Players.LocalPlayer
 local LocService = game:GetService("LocalizationService")
 
--- Hard Cleanup
-if CoreGui:FindFirstChild("SupremeV15_System") then CoreGui.SupremeV15_System:Destroy() end
+-- 1. ULTIMATE CLEANUP (Deletes everything else first)
+for _, old in pairs(CoreGui:GetChildren()) do
+    if old.Name == "SupremeV15_System" or old.Name == "SupremeV14_Final" or old:FindFirstChild("Main") then
+        old:Destroy()
+    end
+end
 
--- [[ 🌍 TRANSLATION DICTIONARY ]] --
+-- [[ 🌍 THE UNIVERSAL TRANSLATOR ]] --
 local Lang = LocService.RobloxLocaleId:lower()
 local Dictionary = {
     ["en-us"] = {success = "THE DONATION SUCCESS!, THE PLAYER YOU MADE HIM DONATE YOU '%s' '%s R$' WAS SUCCESSFUL WORKED BECAUSE HE HAD '%s R$' SO NOW YOU WILL HAVE YOUR '%s R$' SOON 🔜", error = "ERROR THE PLAYER YOU ARE TRYING TO MAKE HIM DONATE YOU '%s', '%s R$' HE CAN'T DONATE BCS HE HAS '%s R$' AND HE CAN'T DONATE YOU THIS AMOUNT OF R$"},
@@ -27,98 +31,94 @@ local function GetMsg(key, v1, v2, v3)
     return string.format(set[key], tostring(v1), tostring(v2), tostring(v3))
 end
 
--- [[ 🎨 PURE CUSTOM "SUPREME" UI ]] --
-local UI = Instance.new("ScreenGui", CoreGui); UI.Name = "SupremeV15_System"
-local Base = Instance.new("Frame", UI); Base.Size = UDim2.new(0, 600, 0, 450); Base.Position = UDim2.new(0.5, -300, 0.5, -225); Base.BackgroundColor3 = Color3.fromRGB(10, 10, 10); Base.BorderSizePixel = 0
-local Rounding = Instance.new("UICorner", Base); Rounding.CornerRadius = UDim.new(0, 15)
+-- [[ 🎨 THE "SUPER AMAZING" CUSTOM UI ]] --
+local Gui = Instance.new("ScreenGui", CoreGui); Gui.Name = "SupremeV16_FreshStart"
+local Main = Instance.new("Frame", Gui); Main.Size = UDim2.new(0, 560, 0, 420); Main.Position = UDim2.new(0.5, -280, 0.5, -210); Main.BackgroundColor3 = Color3.fromRGB(15, 0, 0); Main.BorderSizePixel = 0
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 20)
 
--- Pulsing Neon Stroke
-local Line = Instance.new("UIStroke", Base); Line.Thickness = 4; Line.Color = Color3.fromRGB(255, 0, 0)
+-- Glowing Neon Border
+local Glow = Instance.new("UIStroke", Main); Glow.Thickness = 4; Glow.Color = Color3.fromRGB(255, 0, 0)
 task.spawn(function()
     while true do
-        TweenService:Create(Line, TweenInfo.new(1.2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Color = Color3.fromRGB(80, 0, 0)}):Play()
-        task.wait(1.2)
-        TweenService:Create(Line, TweenInfo.new(1.2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Color = Color3.fromRGB(255, 0, 0)}):Play()
-        task.wait(1.2)
+        TweenService:Create(Glow, TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Color = Color3.fromRGB(80, 0, 0)}):Play()
+        task.wait(2)
+        TweenService:Create(Glow, TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Color = Color3.fromRGB(255, 0, 0)}):Play()
+        task.wait(2)
     end
 end)
 
--- Header Text (Custom Font Style)
-local Head = Instance.new("TextLabel", Base); Head.Size = UDim2.new(1, 0, 0, 60); Head.Text = "GHALOULIX9 SUPREME V15"; Head.TextColor3 = Color3.new(1,1,1); Head.Font = "GothamBlack"; Head.TextSize = 26; Head.BackgroundTransparency = 1
+-- Header
+local Header = Instance.new("TextLabel", Main); Header.Size = UDim2.new(1, 0, 0, 50); Header.Text = "GHALOULIX9 SUPREME V16"; Header.TextColor3 = Color3.new(1,1,1); Header.Font = "GothamBlack"; Header.TextSize = 24; Header.BackgroundTransparency = 1
 
--- Live Console
-local Display = Instance.new("TextLabel", Base); Display.Size = UDim2.new(0.94, 0, 0, 90); Display.Position = UDim2.new(0.03, 0, 0.15, 0); Display.BackgroundColor3 = Color3.fromRGB(5,5,5); Display.TextColor3 = Color3.fromRGB(255, 255, 255); Display.Font = "Code"; Display.TextSize = 14; Display.TextWrapped = true; Display.Text = ">> SYSTEM ONLINE | RAW CODE STATUS: SECURE"; Instance.new("UICorner", Display)
+-- Live Display Console
+local Console = Instance.new("TextLabel", Main); Console.Size = UDim2.new(0.9, 0, 0, 80); Console.Position = UDim2.new(0.05, 0, 0.15, 0); Console.BackgroundColor3 = Color3.fromRGB(5,0,0); Console.TextColor3 = Color3.new(1,1,1); Console.Font = "Code"; Console.TextSize = 14; Console.TextWrapped = true; Console.Text = ">> SYSTEM RELOADED. ALL OLD ASSETS DELETED. READY."; Instance.new("UICorner", Console)
 
--- Selection Views
-local function BuildView(pos, name)
-    local f = Instance.new("ScrollingFrame", Base); f.Size = UDim2.new(0.45, 0, 0.45, 0); f.Position = pos; f.BackgroundTransparency = 1; f.ScrollBarThickness = 2; f.AutomaticCanvasSize = "Y"
-    Instance.new("UIListLayout", f).Padding = UDim.new(0, 8)
-    local l = Instance.new("TextLabel", Base); l.Size = UDim2.new(0.45, 0, 0, 20); l.Position = UDim2.new(pos.X.Scale, pos.X.Offset, pos.Y.Scale, -25); l.Text = name; l.TextColor3 = Color3.fromRGB(255, 50, 50); l.Font = "GothamBold"; l.TextSize = 14; l.BackgroundTransparency = 1
+-- Lists
+local function CreateList(pos)
+    local f = Instance.new("ScrollingFrame", Main); f.Size = UDim2.new(0.42, 0, 0.4, 0); f.Position = pos; f.BackgroundTransparency = 1; f.ScrollBarThickness = 2; f.AutomaticCanvasSize = "Y"
+    Instance.new("UIListLayout", f).Padding = UDim.new(0, 5)
     return f
 end
+local PList = CreateList(UDim2.new(0.05, 0, 0.38, 0))
+local RList = CreateList(UDim2.new(0.53, 0, 0.38, 0))
 
-local PView = BuildView(UDim2.new(0.03, 0, 0.4, 0), "PLAYER SELECTION")
-local GView = BuildView(UDim2.new(0.52, 0, 0.4, 0), "DONATION PRICE")
-
--- The Main Action Trigger
-local Trigger = Instance.new("TextButton", Base); Trigger.Size = UDim2.new(0.94, 0, 0, 65); Trigger.Position = UDim2.new(0.03, 0, 0.83, 0); Trigger.BackgroundColor3 = Color3.fromRGB(180, 0, 0); Trigger.Text = "COMMAND DONATION 🔜"; Trigger.TextColor3 = Color3.new(1,1,1); Trigger.Font = "GothamBlack"; Trigger.TextSize = 22; Instance.new("UICorner", Trigger)
+-- Execute Button
+local Action = Instance.new("TextButton", Main); Action.Size = UDim2.new(0.9, 0, 0, 60); Action.Position = UDim2.new(0.05, 0, 0.82, 0); Action.BackgroundColor3 = Color3.fromRGB(200, 0, 0); Action.Text = "COMMAND DONATION 🔜"; Action.TextColor3 = Color3.new(1,1,1); Action.Font = "GothamBlack"; Action.TextSize = 22; Instance.new("UICorner", Action)
 
 -- [[ ⚙️ SYSTEM LOGIC ]] --
-local SelectedUser = nil
-local SelectedID = {id = nil, cost = 0}
+local Target = nil
+local TargetPass = {id = nil, price = 0}
 
-local function CheckWealth(p)
+local function GetR(p)
     local s = p:FindFirstChild("leaderstats")
     return (s and s:FindFirstChild("Donated") and s.Donated.Value or 0) + (s and s:FindFirstChild("Raised") and s.Raised.Value or 0)
 end
 
 local function Load()
-    -- Load Targets
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= LP then
-            local b = Instance.new("TextButton", PView); b.Size = UDim2.new(1, -10, 0, 40); b.BackgroundColor3 = Color3.fromRGB(20, 20, 20); b.Text = p.DisplayName .. " [$" .. CheckWealth(p) .. "]"; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
-            b.MouseButton1Click:Connect(function() SelectedUser = p; Display.Text = ">> TARGET LOCKED: " .. p.Name end)
+            local b = Instance.new("TextButton", PList); b.Size = UDim2.new(1, -5, 0, 35); b.BackgroundColor3 = Color3.fromRGB(40, 0, 0); b.Text = p.DisplayName .. " [$" .. GetR(p) .. "]"; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
+            b.MouseButton1Click:Connect(function() Target = p; Console.Text = ">> LOCKED: " .. p.Name end)
         end
     end
-    -- Load Your Store
+    -- Auto-Fetch IDs
     pcall(function()
         local games = HttpService:JSONDecode(game:HttpGet("https://games.roproxy.com/v2/users/"..LP.UserId.."/games?accessFilter=Public&limit=5")).data
         for _, g in pairs(games) do
             local ps = HttpService:JSONDecode(game:HttpGet("https://games.roproxy.com/v1/games/"..g.id.."/game-passes")).data
             for _, pass in pairs(ps) do
-                local b = Instance.new("TextButton", GView); b.Size = UDim2.new(1, -10, 0, 40); b.BackgroundColor3 = Color3.fromRGB(0, 60, 0); b.Text = pass.price .. " R$"; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBlack"; Instance.new("UICorner", b)
-                b.MouseButton1Click:Connect(function() SelectedID = {id = pass.id, cost = pass.price} end)
+                local b = Instance.new("TextButton", RList); b.Size = UDim2.new(1, -5, 0, 35); b.BackgroundColor3 = Color3.fromRGB(0, 50, 0); b.Text = pass.price .. " R$"; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBlack"; Instance.new("UICorner", b)
+                b.MouseButton1Click:Connect(function() TargetPass = {id = pass.id, price = pass.price} end)
             end
         end
     end)
 end
 
-Trigger.MouseButton1Click:Connect(function()
-    if not SelectedUser or not SelectedID.id then return end
-    local currentR = CheckWealth(SelectedUser)
-    
-    if currentR >= SelectedID.cost then
-        Display.TextColor3 = Color3.new(0, 1, 0)
-        Display.Text = ">> " .. GetMsg("success", SelectedUser.Name, SelectedID.cost, currentR)
-        local root = SelectedUser.Character and SelectedUser.Character:FindFirstChild("HumanoidRootPart")
+Action.MouseButton1Click:Connect(function()
+    if not Target or not TargetPass.id then return end
+    local current = GetR(Target)
+    if current >= TargetPass.price then
+        Console.TextColor3 = Color3.new(0, 1, 0)
+        Console.Text = ">> " .. GetMsg("success", Target.Name, TargetPass.price, current)
+        local root = Target.Character and Target.Character:FindFirstChild("HumanoidRootPart")
         if root then
             local old = root.CFrame
             root.CFrame = LP.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5)
-            MarketService:PromptGamePassPurchase(SelectedUser, SelectedID.id)
+            MarketService:PromptGamePassPurchase(Target, TargetPass.id)
             task.wait(5)
             root.CFrame = old
         end
     else
-        Display.TextColor3 = Color3.new(1, 0, 0)
-        Display.Text = ">> " .. GetMsg("error", SelectedUser.Name, SelectedID.cost, currentR)
+        Console.TextColor3 = Color3.new(1, 0, 0)
+        Console.Text = ">> " .. GetMsg("error", Target.Name, TargetPass.price, current)
     end
 end)
 
--- Draggable Logic (Custom)
+-- Mobile Draggable
 local UIS = game:GetService("UserInputService")
 local drag, dInput, dStart, sPos
-Base.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = true dStart = i.Position sPos = Base.Position end end)
-Base.InputEnded:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = false end end)
-UIS.InputChanged:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseMovement and drag then local delta = i.Position - dStart Base.Position = UDim2.new(sPos.X.Scale, sPos.X.Offset + delta.X, sPos.Y.Scale, sPos.Y.Offset + delta.Y) end end)
+Main.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = true dStart = i.Position sPos = Main.Position end end)
+Main.InputEnded:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = false end end)
+UIS.InputChanged:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseMovement and drag then local delta = i.Position - dStart Main.Position = UDim2.new(sPos.X.Scale, sPos.X.Offset + delta.X, sPos.Y.Scale, sPos.Y.Offset + delta.Y) end end)
 
 Load()
