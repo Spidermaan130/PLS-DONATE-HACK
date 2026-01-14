@@ -1,132 +1,150 @@
--- [[ 👑 GHALOULIX9 SUPREME V32 👑 ]] --
--- 🛠️ PURE RAW LUA | NO EXTERNAL LIBS | NO RAYFIELD
--- ✨ THEME: BLOOD-NEON GLASS | AUTO-REFRESHING SERVER LIST
+-- [[ 👑 GHALOULIX9 BEST SCRIPTS 👑 ]] --
+-- ✨ THEME: PULSING RED & BLUE NEON | COMPACT CENTERED
+-- ⚙️ FEATURES: PURE RAW LUA | NO RAYFIELD | AUTO-DETECTION
 
 local LP = game.Players.LocalPlayer
 local CoreGui = game:GetService("CoreGui")
 local MarketService = game:GetService("MarketplaceService")
 local UIS = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
 
--- [[ 🧹 NUCLEAR CLEANUP ]] --
-local function Purge()
-    for _, v in pairs(CoreGui:GetChildren()) do
-        if v:IsA("ScreenGui") and v.Name ~= "Supreme_V32" and v.Name ~= "RobloxGui" then
-            v:Destroy()
-        end
-    end
+-- [[ 🧹 CLEANUP ]] --
+for _, v in pairs(CoreGui:GetChildren()) do
+    if v.Name == "Supreme_V36" or v.Name == "Supreme_Loading" then v:Destroy() end
 end
-Purge()
 
--- [[ 🎨 THE "EXTREMELY BEAUTIFUL" UI ]] --
-local UI = Instance.new("ScreenGui", CoreGui); UI.Name = "Supreme_V32"
+-- [[ ⏳ 20 SECONDS RED & BLUE LOADING ]] --
+local LoadUI = Instance.new("ScreenGui", CoreGui); LoadUI.Name = "Supreme_Loading"
+local LoadMain = Instance.new("Frame", LoadUI)
+LoadMain.Size = UDim2.new(1, 0, 1, 0); LoadMain.BackgroundColor3 = Color3.fromRGB(5, 0, 10)
+
+local LoadTxt = Instance.new("TextLabel", LoadMain)
+LoadTxt.Size = UDim2.new(1, 0, 0, 60); LoadTxt.Position = UDim2.new(0, 0, 0.5, -40)
+LoadTxt.Text = "GHALOULIX9 BEST SCRIPTS"; LoadTxt.TextColor3 = Color3.new(1,1,1); LoadTxt.Font = "GothamBlack"; LoadTxt.TextSize = 28; LoadTxt.BackgroundTransparency = 1
+
+local BarBG = Instance.new("Frame", LoadMain)
+BarBG.Size = UDim2.new(0, 320, 0, 12); BarBG.Position = UDim2.new(0.5, -160, 0.5, 30); BarBG.BackgroundColor3 = Color3.fromRGB(20, 0, 40)
+local Bar = Instance.new("Frame", BarBG)
+Bar.Size = UDim2.new(0, 0, 1, 0); Bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Instance.new("UICorner", BarBG); Instance.new("UICorner", Bar)
+
+-- Pulsing Animation for Loading
+task.spawn(function()
+    while LoadUI.Parent do
+        local t = tick() * 2
+        local color = Color3.fromRGB(math.sin(t)*127+128, 0, math.cos(t)*127+128)
+        LoadTxt.TextColor3 = color; Bar.BackgroundColor3 = color
+        task.wait()
+    end
+end)
+
+TweenService:Create(Bar, TweenInfo.new(20, Enum.EasingStyle.Linear), {Size = UDim2.new(1, 0, 1, 0)}):Play()
+task.wait(20)
+LoadUI:Destroy()
+
+-- [[ 🎨 THE PULSING MINI-GUI ]] --
+local UI = Instance.new("ScreenGui", CoreGui); UI.Name = "Supreme_V36"
 local Main = Instance.new("Frame", UI)
-Main.Size = UDim2.new(0, 580, 0, 460); Main.Position = UDim2.new(0.5, -290, 0.5, -230)
-Main.BackgroundColor3 = Color3.fromRGB(15, 0, 0); Main.BackgroundTransparency = 0.15
-Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 20)
-local Glow = Instance.new("UIStroke", Main); Glow.Thickness = 4; Glow.Color = Color3.fromRGB(255, 0, 0)
+Main.Size = UDim2.new(0, 440, 0, 340); Main.Position = UDim2.new(0.5, -220, 0.5, -170)
+Main.BackgroundColor3 = Color3.fromRGB(15, 0, 30); Main.BackgroundTransparency = 0.15
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 15)
+local NeonStroke = Instance.new("UIStroke", Main); NeonStroke.Thickness = 4
 
--- Glowing Title
-local Title = Instance.new("TextLabel", Main)
-Title.Size = UDim2.new(1, 0, 0, 65); Title.Text = "👑 SUPREME V32: ABSOLUTE 👑"; Title.TextColor3 = Color3.new(1,1,1)
-Title.Font = "GothamBlack"; Title.TextSize = 24; Title.BackgroundTransparency = 1
+-- Background & Border Pulse Logic (Red/Blue)
+task.spawn(function()
+    while Main.Parent do
+        local t = tick() * 1.2
+        local redBlue = Color3.fromRGB(math.sin(t)*60+70, 0, math.cos(t)*60+70)
+        Main.BackgroundColor3 = redBlue
+        NeonStroke.Color = Color3.fromRGB(math.sin(t)*127+128, 0, math.cos(t)*127+128)
+        task.wait()
+    end
+end)
 
--- Status Box
-local Status = Instance.new("TextLabel", Main)
-Status.Size = UDim2.new(0.94, 0, 0, 75); Status.Position = UDim2.new(0.03, 0, 0.15, 0)
-Status.BackgroundColor3 = Color3.fromRGB(0, 0, 0); Status.BackgroundTransparency = 0.5; Status.TextColor3 = Color3.new(1, 1, 1)
-Status.Font = "Code"; Status.TextSize = 14; Status.Text = ">> WAITING FOR PLAYER SELECTION..."; Status.TextWrapped = true; Instance.new("UICorner", Status)
+local Header = Instance.new("TextLabel", Main)
+Header.Size = UDim2.new(1, 0, 0, 45); Header.Text = "GHALOULIX9 BEST SCRIPTS"; Header.TextColor3 = Color3.new(1,1,1)
+Header.Font = "GothamBlack"; Header.TextSize = 18; Header.BackgroundTransparency = 1
 
--- [[ 📁 DUAL PANELS ]] --
+-- [[ ⚠️ PULSING WARNING ]] --
+local Warning = Instance.new("TextLabel", Main)
+Warning.Size = UDim2.new(0.9, 0, 0, 60); Warning.Position = UDim2.new(0.05, 0, 0.15, 0)
+Warning.BackgroundColor3 = Color3.new(0,0,0); Warning.BackgroundTransparency = 0.5; Warning.TextWrapped = true
+Warning.Font = "Code"; Warning.TextSize = 12; Instance.new("UICorner", Warning)
+Warning.Text = "WARNING: USE RESPONSIBLY. AUTO-DETECTION ACTIVE. GOODLUCK!"
+
+task.spawn(function()
+    while Warning.Parent do
+        local t = tick() * 2.5
+        Warning.TextColor3 = Color3.fromRGB(math.sin(t)*127+128, 0, math.cos(t)*127+128)
+        task.wait()
+    end
+end)
+
+-- [[ 📁 INTERFACE ]] --
 local PList = Instance.new("ScrollingFrame", Main)
-PList.Size = UDim2.new(0.46, 0, 0.48, 0); PList.Position = UDim2.new(0.03, 0, 0.33, 0)
+PList.Size = UDim2.new(0.45, 0, 0.38, 0); PList.Position = UDim2.new(0.05, 0, 0.38, 0)
 PList.BackgroundTransparency = 1; PList.AutomaticCanvasSize = "Y"; PList.ScrollBarThickness = 0
 Instance.new("UIListLayout", PList).Padding = UDim.new(0, 5)
 
-local GList = Instance.new("ScrollingFrame", Main)
-GList.Size = UDim2.new(0.46, 0, 0.48, 0); GList.Position = UDim2.new(0.51, 0, 0.33, 0)
-GList.BackgroundTransparency = 1; GList.AutomaticCanvasSize = "Y"; GList.ScrollBarThickness = 0
-Instance.new("UIListLayout", GList).Padding = UDim.new(0, 5)
+local IDInput = Instance.new("TextBox", Main)
+IDInput.Size = UDim2.new(0.42, 0, 0, 40); IDInput.Position = UDim2.new(0.53, 0, 0.38, 0)
+IDInput.PlaceholderText = "PASTE ID"; IDInput.BackgroundColor3 = Color3.fromRGB(0, 0, 0); IDInput.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", IDInput)
 
--- Action Button
-local ActionBtn = Instance.new("TextButton", Main)
-ActionBtn.Size = UDim2.new(0.94, 0, 0, 65); ActionBtn.Position = UDim2.new(0.03, 0, 0.83, 0)
-ActionBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40); ActionBtn.Text = "LOCKED: SELECT PLAYER & ID"; ActionBtn.TextColor3 = Color3.new(1,1,1)
-ActionBtn.Font = "GothamBlack"; ActionBtn.TextSize = 22; Instance.new("UICorner", ActionBtn)
+local Action = Instance.new("TextButton", Main)
+Action.Size = UDim2.new(0.9, 0, 0, 50); Action.Position = UDim2.new(0.05, 0, 0.82, 0)
+Action.BackgroundColor3 = Color3.fromRGB(30, 0, 60); Action.Text = "SELECT TARGET & PASS"; Action.TextColor3 = Color3.new(1,1,1)
+Action.Font = "GothamBlack"; Action.TextSize = 18; Instance.new("UICorner", Action)
 
--- [[ ⚙️ CORE SYSTEM ]] --
-local SelectedPlayer = nil
-local SelectedID = nil
-local SAVE_FILE = "SupremeV32_AutoID.txt"
+-- [[ ⚙️ SYSTEM LOGIC ]] --
+local SelectedPlayer, SelectedPass = nil, nil
+local function Draggable(f)
+    local d, s, p
+    f.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then d = true s = i.Position p = f.Position end end)
+    f.InputEnded:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then d = false end end)
+    UIS.InputChanged:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseMovement and d then local o = i.Position - s f.Position = UDim2.new(p.X.Scale, p.X.Offset + o.X, p.Y.Scale, p.Y.Offset + o.Y) end end)
+end
+Draggable(Main)
 
--- 1. Auto-Updating Player List (Server Only)
-local function RefreshPlayers()
+local function Refresh()
     for _, v in pairs(PList:GetChildren()) do if v:IsA("TextButton") then v:Destroy() end end
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= LP then
-            local b = Instance.new("TextButton", PList); b.Size = UDim2.new(1, 0, 0, 40); b.BackgroundColor3 = Color3.fromRGB(20, 20, 20); b.BackgroundTransparency = 0.4
-            b.Text = p.DisplayName; b.TextColor3 = Color3.new(1,1,1); b.Font = "GothamBold"; Instance.new("UICorner", b)
-            b.MouseButton1Click:Connect(function() 
-                SelectedPlayer = p
-                local r = (p:FindFirstChild("leaderstats") and p.leaderstats:FindFirstChild("Raised") and p.leaderstats.Raised.Value or 0)
-                Status.Text = ">> TARGET: " .. p.Name .. " | WEALTH: " .. r .. " R$\n>> STEP 2: ENTER ACTIVATED GAMEPASS ID."
-            end)
+            local b = Instance.new("TextButton", PList); b.Size = UDim2.new(1, 0, 0, 30); b.BackgroundColor3 = Color3.fromRGB(0, 0, 0); b.BackgroundTransparency = 0.5
+            b.Text = p.DisplayName; b.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", b)
+            b.MouseButton1Click:Connect(function() SelectedPlayer = p; Warning.Text = "TARGET: " .. p.Name end)
         end
     end
 end
-game.Players.PlayerAdded:Connect(RefreshPlayers)
-game.Players.PlayerRemoving:Connect(RefreshPlayers)
+game.Players.PlayerAdded:Connect(Refresh); Refresh()
 
--- 2. Activated ID Logic (With Your Cool Messages)
-local IDInput = Instance.new("TextBox", GList); IDInput.Size = UDim2.new(1, 0, 0, 45); IDInput.PlaceholderText = "PASTE ID HERE"; IDInput.BackgroundColor3 = Color3.fromRGB(50, 0, 0); IDInput.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", IDInput)
-local Verify = Instance.new("TextButton", GList); Verify.Size = UDim2.new(1, 0, 0, 45); Verify.Text = "VERIFY & ACTIVATE"; Verify.BackgroundColor3 = Color3.fromRGB(180, 0, 0); Verify.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", Verify)
-
-Verify.MouseButton1Click:Connect(function()
-    local id = tonumber(IDInput.Text)
-    if not id then Status.Text = ">> ERROR: TYPE NUMBERS!"; return end
-    
-    local ok, info = pcall(function() return MarketService:GetProductInfo(id, Enum.InfoType.GamePass) end)
-    if ok and info then
-        if info.Creator.CreatorTargetId ~= LP.UserId then
-            Status.TextColor3 = Color3.new(1,0,0)
-            Status.Text = ">> This Gamepass is not yours! You can only type your own gamepass!"
-        elseif not info.IsPubliclySellable then
-            Status.TextColor3 = Color3.new(1,0,0)
-            Status.Text = ">> This gamepass id 🆔 is not activated. Type the gamepass id that is activated!"
-        else
-            SelectedID = id
-            if writefile then writefile(SAVE_FILE, tostring(id)) end
-            Status.TextColor3 = Color3.new(0, 1, 0)
-            Status.Text = ">> ACTIVATED: " .. info.Name .. " (" .. info.PriceInRobux .. " R$)\n>> READY TO DONATE."
-            ActionBtn.BackgroundColor3 = Color3.fromRGB(220, 0, 0); ActionBtn.Text = "DONATE / CONFIRM 🔜"
+-- Auto-Check Logic
+IDInput.FocusLost:Connect(function(enter)
+    if enter then
+        local id = tonumber(IDInput.Text)
+        local ok, info = pcall(function() return MarketService:GetProductInfo(id, Enum.InfoType.GamePass) end)
+        if ok and info then
+            if info.Creator.CreatorTargetId ~= LP.UserId then
+                Warning.Text = "This Gamepass is not yours! You can only type your own gamepass!"
+            elseif not info.IsPubliclySellable then
+                Warning.Text = "This gamepass id 🆔 is not activated. Type the gamepass id that is activated!"
+            else
+                SelectedPass = id
+                Warning.Text = "ACTIVATED: " .. info.Name .. " (" .. (info.PriceInRobux or 0) .. " R$)"
+                Action.BackgroundColor3 = Color3.fromRGB(150, 0, 0); Action.Text = "DONATE / CONFIRM"
+            end
         end
-    else
-        Status.Text = ">> ERROR: ID NOT FOUND"; Status.TextColor3 = Color3.new(1,0,0)
     end
 end)
 
--- 3. The Execution
-ActionBtn.MouseButton1Click:Connect(function()
-    if not SelectedPlayer or not SelectedID then return end
+Action.MouseButton1Click:Connect(function()
+    if not SelectedPlayer or not SelectedPass then return end
     local hrp = SelectedPlayer.Character and SelectedPlayer.Character:FindFirstChild("HumanoidRootPart")
     if hrp then
-        local oldPos = hrp.CFrame
+        local old = hrp.CFrame
         hrp.CFrame = LP.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5)
-        MarketService:PromptGamePassPurchase(SelectedPlayer, SelectedID)
+        MarketService:PromptGamePassPurchase(SelectedPlayer, SelectedPass)
         local c; c = MarketService.PromptGamePassPurchaseFinished:Connect(function(plr, id, state)
-            if plr == SelectedPlayer and id == SelectedID then
-                task.wait(1.5); hrp.CFrame = oldPos; c:Disconnect()
-                Status.Text = ">> COMPLETE. TARGET RETURNED."
-            end
+            if plr == SelectedPlayer and id == SelectedPass then task.wait(1.5); hrp.CFrame = old; c:Disconnect() end
         end)
     end
 end)
-
--- Initialize
-if isfile and isfile(SAVE_FILE) then IDInput.Text = readfile(SAVE_FILE) end
-RefreshPlayers()
-
--- Smooth Drag for Mobile
-local drag, dStart, sPos
-Main.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = true dStart = i.Position sPos = Main.Position end end)
-Main.InputEnded:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = false end end)
-UIS.InputChanged:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseMovement and drag then local d = i.Position - dStart Main.Position = UDim2.new(sPos.X.Scale, sPos.X.Offset + d.X, sPos.Y.Scale, sPos.Y.Offset + d.Y) end end)
